@@ -1,5 +1,15 @@
 # NSTrainTime
-PowerShell Module for Dutch train times between two stations (trein dienstregeling)
+## PowerShell Module for Dutch train times between two stations (trein dienstregeling)
+
+**This module needs API credentials for the Dutch NS API**
+Request API access [here](https://www.ns.nl/ews-aanvraagformulier/?0)
+
+Username and Password should be added to the Powershelldatafile: APICredential.psd1
+
+Function to determine train availability from the Dutch NS API (https://www.ns.nl/en/travel-information/ns-api)
+Use an Internet connected machine with access to (http://webservices.ns.nl/ns-api-treinplanner)
+
+
 
 Got fed up turning up at the train station only to find the train was delayed, so I was waiting at a train station when I could have been PowerShelling at work...  How could I solve this problem?
 
@@ -14,3 +24,8 @@ Get-NSTrain -fromStation 'Amsterd... tab to complete' -toStation 'Duiven... tab 
 Good idea to output to Format-Table:
 
 Get-NSTrain -fromStation Amsterdam -toStation Duivendrecht | ft
+
+
+
+
+
