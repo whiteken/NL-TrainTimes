@@ -1,2 +1,3 @@
-#API credentials
-/API_cred.json
+#Don't check these in...
+/APICredential.psd1
+/nstraintime.code-workspace
