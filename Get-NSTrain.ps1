@@ -6,7 +6,7 @@ Find trains between two destinations
 .DESCRIPTION
 Got a bit fed up turning up at the station to find trains were delayed or cancelled, so wrote this function to find out in advance before leaving the office
 
-Function to determine train availability from the Dutch NS API (https://www.ns.nl/en/travel-information/ns-api)
+Function determines train availability from the Dutch NS API (https://www.ns.nl/en/travel-information/ns-api)
 Needs connection to External API http://webservices.ns.nl/ns-api-treinplanner
 Use an Internet connected machine
 
@@ -16,8 +16,8 @@ Request API access here: https://www.ns.nl/ews-aanvraagformulier/?0
 Author: Kenny White 14/01/2016
 
 .Example
-Get-NSTrain -fromStation 'Amsterdam Zuid' -toStation 'Hilversum'
-Get information about trains from Amsterdam Zuid to Hilversum
+Get-NSTrain -fromStation 'Amsterdam Zuid' -toStation 'Duivendrecht'
+Gets information about next 10 trains from Amsterdam Zuid to Duivendrecht
 
 #>
     [cmdletbinding()]
