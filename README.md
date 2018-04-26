@@ -18,7 +18,7 @@ I kept turning up at the train station after work only to find the train was del
 
 Eventually, I then got fed up with typos, afterall maybe the train would in fact be on time, so time was precious!  Major props to [@bielawb](https://github.com/bielawb) for the help with tab expansion :) 
 
-Then I went to PowerShell Conf EU <sup>[1](#myfootnote1)</sup>  and was inspired to paramterise the script, turn it into a functions and put this all into a module which could be shared!
+Then I went to PowerShell Conf EU<sup>[1](#myfootnote1)</sup>  and was inspired to paramterise the script, turn it into a functions and put this all into a module which could be shared!
 
 
 ```powershell
@@ -32,6 +32,7 @@ Good idea to output to Format-Table:
 ```powershell
 Get-NSTrain -fromStation Amsterdam -toStation Duivendrecht | ft
 ```
+
 
 <a name="myfootnote1">1</a>: Definitely recommended!
 
