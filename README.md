@@ -22,12 +22,17 @@ Then I got fed up with typos, afterall maybe the train would in fact be on time,
 
 Then I went to PowerShell Conf EU (definitely recommended) and was inspired to put this all into a module and share...
 
+```powershell
 Import-Module NSTrainTime
+
 Get-NSTrain -fromStation 'Amsterd... tab to complete' -toStation 'Duiven... tab to complete'
+```
 
 Good idea to output to Format-Table:
 
+```powershell
 Get-NSTrain -fromStation Amsterdam -toStation Duivendrecht | ft
+```
 
 
 
