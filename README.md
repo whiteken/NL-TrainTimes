@@ -1,5 +1,9 @@
 # NSTrainTime 
-![Build Status](https://darkcrystal.visualstudio.com/_apis/public/build/definitions/3bfcd214-d277-4749-9b97-707e7a61b114/1/badge)
+[![Build Status](https://darkcrystal.visualstudio.com/_apis/public/build/definitions/3bfcd214-d277-4749-9b97-707e7a61b114/1/badge)](https://darkcrystal.visualstudio.com/NSTrainTime/_build/index?definitionId=1)
+
+
+[![Build Status](https://darkcrystal.visualstudio.com/_apis/public/build/definitions/3bfcd214-d277-4749-9b97-707e7a61b114/1/badge)]
+(https://{your-account}.visualstudio.com/{your-project}/_build/index?definitionId={id})
 ## PowerShell Module for Dutch train times between two stations (trein dienstregeling)
 
 
