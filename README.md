@@ -20,6 +20,7 @@ Eventually, I then got fed up with typos, afterall maybe the train would in fact
 
 Then I went to PowerShell Conf EU<sup>[1](#myfootnote1)</sup> and was inspired to paramterise the script, turn it into a couple of functions and put them all into a shareable module.
 
+**How to use it:**
 
 ```powershell
 Import-Module NSTrainTime
@@ -27,7 +28,7 @@ Import-Module NSTrainTime
 Get-NSTrain -fromStation 'Amsterd... tab to complete' -toStation 'Duiven... tab to complete'
 ```
 
-Good idea to output to Format-Table:
+Also a good idea to output to Format-Table:
 
 ```powershell
 Get-NSTrain -fromStation Amsterdam -toStation Duivendrecht | ft
