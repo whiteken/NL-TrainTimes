@@ -1,7 +1,7 @@
 # NSTrainTime
 ## PowerShell Module for Dutch train times between two stations (trein dienstregeling)
 
-[![Build Status](https://darkcrystal.visualstudio.com/_apis/public/build/definitions/{guid}/{id}/badge)](https://darkcrystal.visualstudio.com/NSTrainTime/_build/index?definitionId={id})
+[![Build Status](https://darkcrystal.visualstudio.com/_apis/public/build/definitions/3bfcd214-d277-4749-9b97-707e7a61b114/1/badge)
 
 **This module needs API credentials for the Dutch NS API**
 Request API access [here](https://www.ns.nl/ews-aanvraagformulier/?0)
