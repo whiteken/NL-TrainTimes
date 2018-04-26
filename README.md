@@ -14,11 +14,11 @@ Once the module is loaded, the Get-NSTrain function shows the last and next few 
 
 **Why did I write this?**
 
-I kept turning up at the train station after work only to find the train was delayed, then I was waiting at a train station when I could have been PowerShelling at work.  How could I solve this problem?  The answer was this a script that I would fire off around EoD at work.
+I kept turning up at the train station after work only to find the train was delayed, then I was waiting at a train station when I could have been PowerShelling at work.  How could I solve this problem?  The answer was a script that I would fire off around EoD at work.
 
 Eventually, I then got fed up with typos, afterall maybe the train would in fact be on time, so time was precious!  Major props to [@bielawb](https://github.com/bielawb) for the help with tab expansion :) 
 
-Then I went to PowerShell Conf EU [^1] and was inspired to put this all into a module and share!
+Then I went to PowerShell Conf EU [^1] and was inspired to paramterise the script, turn it into a functions and put this all into a module which could be shared!
 
 
 ```powershell
