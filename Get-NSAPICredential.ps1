@@ -4,7 +4,7 @@ function Get-NSAPICredential{
             
     Param(
         #Path to powershell data file containing API credential info
-        [Parameter()][string]$PowershellDataFile ='APICredential.psd1'
+        [Parameter()][string]$PowershellDataFile ="$($PSScriptRoot)/APICredential.psd1"
     )
 
     try{
