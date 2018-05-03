@@ -2,6 +2,7 @@
 function Get-NSTrainStation{
 
     [cmdletbinding()]
+    [alias('gnsts')]
         
     Param(
         #Station or part-station name
@@ -10,14 +11,23 @@ function Get-NSTrainStation{
 
         #Optional NS Train stations API URI
         [Parameter(Position=1)]
-        [string]$Uri = "http://webservices.ns.nl/ns-api-stations"
+        [string]$URL = "http://webservices.ns.nl/ns-api-stations"
     )
 
-    $apiUser = Get-NSAPICredential
+    try{
+        $apiUser = Get-NSAPICredential 
+    }
+    catch{
+        Throw "Error unable to retrieve API credentials: $_"
+    }
 
     $username = $apiUser.Username
     $password = $apiUser.Password
-    
+
+    if (-not ($username) -or -not ($password)){
+        Throw "Error No username or password retrieved: $_"
+    }
+
     $webClient = New-Object System.Net.WebClient
 
     $bytes = [System.Text.Encoding]::UTF8.GetBytes($($username + ':' + $password))
@@ -28,7 +38,7 @@ function Get-NSTrainStation{
     $webClient.Headers.add('Authorization',$formatcred)
     
     try{
-        [xml]$xml = $webClient.DownloadString($Uri)
+        [xml]$xml = $webClient.DownloadString($URL)
     }
     catch{
         Throw "Cannot download train info from NS website: $_"        

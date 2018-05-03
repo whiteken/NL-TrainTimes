@@ -31,32 +31,37 @@ Gets information about next 10 trains from Amsterdam Zuid to Duivendrecht
         #Journey end station
         [Parameter(Mandatory = $true, Position = 1)]
         [ArgumentCompleter([nsTrainStationToCompleter])]
-        $toStation
+        $toStation,
+
+        #Optional URL
+        [Parameter(Position = 2)]
+        $URL = "http://webservices.ns.nl/ns-api-treinplanner"
     )
-        
+    
+    #Get todays date 
     $date = Get-Date -format s     
 
-    $url = "http://webservices.ns.nl/ns-api-treinplanner?toStation=$toStation&fromStation=$fromStation&Departure=true&datetime=$date"
-    $webClient = New-Object System.Net.WebClient
+    #Add the filters
+    $URL += "?toStation=$toStation&fromStation=$fromStation&Departure=true&datetime=$date"
 
     #Checked in APICredential.psd1 has dummy credentials
     #Request genuine API credenital here: https://www.ns.nl/ews-aanvraagformulier 
     try{
-        $apiUser = Import-PowerShellDataFile ./APICredential.psd1 -ErrorAction Stop
+        #$apiUser = Import-PowerShellDataFile ./APICredential.psd1 -ErrorAction Stop
+        $apiUser = Get-NSAPICredential -ErrorAction Stop
     }
     catch{
         Throw "Unable to retrieve API credentials. Check that dummy values from APICredential.psd1 are updated: $_"
     }
-
-    $username = $apiUser.Username
-    $password = $apiUser.Password
-
-    $bytes = [System.Text.Encoding]::UTF8.GetBytes($($username + ':' + $password))
-    $credentials = [System.Convert]::ToBase64String($bytes)  
     
-    $formatcred = 'Basic ' + $credentials
+    #$bytes = [System.Text.Encoding]::UTF8.GetBytes($($username + ':' + $password))
+    #$credentials = [System.Convert]::ToBase64String($bytes)  
+    
+    $credentials = ConvertTo-ByteArray -username $apiUser.Username -password $apiUser.Password | ConvertTo-Base64String
+    $formatCred = 'Basic ' + $credentials
 
-    $webClient.Headers.add('Authorization', $formatcred)
+    $webClient = New-Object System.Net.WebClient
+    $webClient.Headers.add('Authorization', $formatCred)
     
     try {
         [xml]$xml = $webClient.DownloadString($url)
