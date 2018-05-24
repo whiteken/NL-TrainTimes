@@ -1,13 +1,29 @@
    
 function Get-NSXML {
 
-    $webClient = New-Object System.Net.WebClient
-    $webClient.Headers.add('Authorization', $formatCred)
-    
+    [cmdletbinding()]
+    [outputtype([xml])]
+    param(
+        #Formatted credential string for Web client header
+        [Parameter(Mandatory=$true, Position=0)][string]$WebClientHeaderAuth,
+
+        #NS API resource
+        [Parameter(Mandatory=$true, Position=1)]
+        [uri]$URI
+    )
+
     try{
-        [xml]$xml = $webClient.DownloadString($URI)
+        $webClient = New-Object System.Net.WebClient -ErrorAction Stop
+        $webClient.Headers.add('Authorization', $WebClientHeaderAuth)
     }
     catch{
-        Throw "Cannot download train info from NS website: $_"        
+        Throw "Web client error: $_"
+    }
+    
+    try{
+        [xml]$webClient.DownloadString($URI)
+    }
+    catch{
+        Throw "Cannot download info from NS website: $_"        
     }
 }
