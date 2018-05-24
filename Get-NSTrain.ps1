@@ -42,19 +42,16 @@ Gets information about next 10 trains from Amsterdam Zuid to Duivendrecht
     $date = Get-Date -format s     
 
     #Add the filters
-    [URI]$filteredURI = $URI.OriginalString + "?toStation=$toStation&fromStation=$fromStation&Departure=true&datetime=$date"
+    [uri]$filteredURI = $URI.OriginalString + "?toStation=$toStation&fromStation=$fromStation&Departure=true&datetime=$date"
 
-    #Checked in APICredential.psd1 has dummy credentials
-    #Request genuine API credenital here: https://www.ns.nl/ews-aanvraagformulier 
     try{
-        #$apiUser = Import-PowerShellDataFile ./APICredential.psd1 -ErrorAction Stop
         $apiUser = Get-NSAPICredential -ErrorAction Stop
     }
     catch{
         Throw "Unable to retrieve API credentials. Check that dummy values from APICredential.psd1 are updated: $_"
     }
     
-    $credentials = ConvertTo-ByteArray -username $apiUser.Username -APIKey $apiUser.APIKey | ConvertTo-Base64String
+    $credentials = ConvertTo-ByteArray -Username $apiUser.Username -APIKey $apiUser.APIKey | ConvertTo-Base64String
     $formatCred = 'Basic ' + $credentials
 
     [xml]$xml = Get-NSXML -WebClientHeaderAuth $formatCred -URI $filteredURI

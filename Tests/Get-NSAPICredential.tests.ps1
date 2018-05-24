@@ -33,6 +33,10 @@ InModuleScope NSTrainTime {
             It "Password should be value from file" {
                 $result.APIKey | Should -BeExactly 'APIKeyPester' -Because "we know this is the dummy value set in the mock objects so we are reading it correctly"
             }
+
+            It 'Calls Import-PowerShellDataFile exactly once' {    
+                Assert-MockCalled Import-PowerShellDataFile -Exactly 1 -Scope Context
+            }
         }
 
         Context "Powershell data file is not available" {
@@ -50,6 +54,10 @@ InModuleScope NSTrainTime {
 
             It "Should throw if file is not available" {
                 $result | Should -BeExactly "Error loading API credential info from PowershellDataFile: [Pester]" -Because 'This function must throw when no file is available since we need it to talk to the API.'
+            }
+
+            It 'Calls Import-PowerShellDataFile exactly once' {    
+                Assert-MockCalled Import-PowerShellDataFile -Exactly 1 -Scope Context
             }
         }
     }
