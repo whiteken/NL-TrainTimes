@@ -11,7 +11,7 @@ function Get-NSTrainStation{
 
         #Optional NS Train stations API URI
         [Parameter(Position=1)]
-        [string]$URL = "http://webservices.ns.nl/ns-api-stations"
+        [uri]$URI = "http://webservices.ns.nl/ns-api-stations"
     )
 
     #Checked in APICredential.psd1 has dummy credentials
@@ -26,19 +26,7 @@ function Get-NSTrainStation{
     $credentials = ConvertTo-ByteArray -username $apiUser.Username -APIKey $apiUser.APIKey | ConvertTo-Base64String
     $formatCred = 'Basic ' + $credentials
 
-    $webClient = New-Object System.Net.WebClient
-    $webClient.Headers.add('Authorization', $formatCred)
-    
-    $formatcred = 'Basic ' + $credentials
-
-    $webClient.Headers.add('Authorization',$formatcred)
-    
-    try{
-        [xml]$xml = $webClient.DownloadString($URL)
-    }
-    catch{
-        Throw "Cannot download train info from NS website: $_"        
-    }
+    [xml]$xml = Get-NSXML -WebClientHeaderAuth $formatCred -URI "http://webservices.ns.nl/ns-api-stations"
 
     $xml.SelectNodes("//station").Where({$_.name -like "*$StationName*"}).ForEach({$_.name})
 }

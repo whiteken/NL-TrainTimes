@@ -35,14 +35,14 @@ Gets information about next 10 trains from Amsterdam Zuid to Duivendrecht
 
         #Optional URL
         [Parameter(Position = 2)]
-        $URL = "http://webservices.ns.nl/ns-api-treinplanner"
+        [URI]$URI = "http://webservices.ns.nl/ns-api-treinplanner"
     )
     
     #Get todays date 
     $date = Get-Date -format s     
 
     #Add the filters
-    $URL += "?toStation=$toStation&fromStation=$fromStation&Departure=true&datetime=$date"
+    [URI]$filteredURI = $URI.OriginalString + "?toStation=$toStation&fromStation=$fromStation&Departure=true&datetime=$date"
 
     #Checked in APICredential.psd1 has dummy credentials
     #Request genuine API credenital here: https://www.ns.nl/ews-aanvraagformulier 
@@ -54,21 +54,10 @@ Gets information about next 10 trains from Amsterdam Zuid to Duivendrecht
         Throw "Unable to retrieve API credentials. Check that dummy values from APICredential.psd1 are updated: $_"
     }
     
-    #$bytes = [System.Text.Encoding]::UTF8.GetBytes($($username + ':' + $password))
-    #$credentials = [System.Convert]::ToBase64String($bytes)  
-    
     $credentials = ConvertTo-ByteArray -username $apiUser.Username -APIKey $apiUser.APIKey | ConvertTo-Base64String
     $formatCred = 'Basic ' + $credentials
 
-    $webClient = New-Object System.Net.WebClient
-    $webClient.Headers.add('Authorization', $formatCred)
-    
-    try {
-        [xml]$xml = $webClient.DownloadString($url)
-    }
-    catch {
-        Throw "Cannot download train info from NS website: $_"       
-    }
+    [xml]$xml = Get-NSXML -WebClientHeaderAuth $formatCred -URI $filteredURI
     
     $xml.SelectNodes('//ReisMogelijkheid') | ForEach-Object {
     
