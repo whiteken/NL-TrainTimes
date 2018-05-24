@@ -8,7 +8,7 @@ function ConvertTo-Base64String {
 
     process{
         [array]$collector += $Byte
-        if($collector.Count -gt 64){
+        if($collector.Count -gt 172){
             Throw "Error max length of Base64 string exceeded"
         }
     }

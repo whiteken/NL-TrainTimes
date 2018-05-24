@@ -14,24 +14,20 @@ function Get-NSTrainStation{
         [string]$URL = "http://webservices.ns.nl/ns-api-stations"
     )
 
+    #Checked in APICredential.psd1 has dummy credentials
+    #Request genuine API credenital here: https://www.ns.nl/ews-aanvraagformulier 
     try{
-        $apiUser = Get-NSAPICredential 
+        $apiUser = Get-NSAPICredential -ErrorAction Stop
     }
     catch{
-        Throw "Error unable to retrieve API credentials: $_"
+        Throw "Unable to retrieve API credentials. Check that dummy values from APICredential.psd1 are updated: $_"
     }
-
-    $username = $apiUser.Username
-    $password = $apiUser.Password
-
-    if (-not ($username) -or -not ($password)){
-        Throw "Error No username or password retrieved: $_"
-    }
+    
+    $credentials = ConvertTo-ByteArray -username $apiUser.Username -APIKey $apiUser.APIKey | ConvertTo-Base64String
+    $formatCred = 'Basic ' + $credentials
 
     $webClient = New-Object System.Net.WebClient
-
-    $bytes = [System.Text.Encoding]::UTF8.GetBytes($($username + ':' + $password))
-    $credentials = [System.Convert]::ToBase64String($bytes)  
+    $webClient.Headers.add('Authorization', $formatCred)
     
     $formatcred = 'Basic ' + $credentials
 

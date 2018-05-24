@@ -8,7 +8,7 @@ InModuleScope NSTrainTime {
             Mock -CommandName Import-PowerShellDataFile -MockWith {
                 [hashtable]@{
                     Username = 'email@domain.com'
-                    Password = 'APICredentialPassword'
+                    APIKey = 'APIKeyPester'
                 }
             }
 
@@ -23,7 +23,7 @@ InModuleScope NSTrainTime {
             }
 
             It "Result should contain a password" {
-                $result.Password | Should -BeofType [string] -Because "we expect this in the calling function to correctly build the API creds"
+                $result.APIKey | Should -BeofType [string] -Because "we expect this in the calling function to correctly build the API creds"
             }
 
             It "Username should be value from file" {
@@ -31,7 +31,7 @@ InModuleScope NSTrainTime {
             }
 
             It "Password should be value from file" {
-                $result.Password | Should -BeExactly 'APICredentialPassword' -Because "we know this is the dummy value set in the mock objects so we are reading it correctly"
+                $result.APIKey | Should -BeExactly 'APIKeyPester' -Because "we know this is the dummy value set in the mock objects so we are reading it correctly"
             }
         }
 

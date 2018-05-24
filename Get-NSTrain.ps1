@@ -57,7 +57,7 @@ Gets information about next 10 trains from Amsterdam Zuid to Duivendrecht
     #$bytes = [System.Text.Encoding]::UTF8.GetBytes($($username + ':' + $password))
     #$credentials = [System.Convert]::ToBase64String($bytes)  
     
-    $credentials = ConvertTo-ByteArray -username $apiUser.Username -password $apiUser.Password | ConvertTo-Base64String
+    $credentials = ConvertTo-ByteArray -username $apiUser.Username -APIKey $apiUser.APIKey | ConvertTo-Base64String
     $formatCred = 'Basic ' + $credentials
 
     $webClient = New-Object System.Net.WebClient

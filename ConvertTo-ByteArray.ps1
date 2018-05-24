@@ -3,12 +3,12 @@ function ConvertTo-ByteArray {
         #Username
         [Parameter(Mandatory=$true)][string]$Username,
         
-        #Password
-        [Parameter(Mandatory=$true)][string]$Password
+        #APIKey
+        [Parameter(Mandatory=$true)][string]$APIKey
     )   
     
     try{
-        [System.Text.Encoding]::UTF8.GetBytes($($username + ':' + $password))
+        [System.Text.Encoding]::UTF8.GetBytes($($Username + ':' + $APIKey))
     }
     catch{
         Throw "Error encoding to bytes: $_"
