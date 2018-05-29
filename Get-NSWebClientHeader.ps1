@@ -1,4 +1,4 @@
-function ConvertTo-ByteArray {
+function Get-NSWebClientHeader {
     param(
         #Username
         [Parameter(Mandatory=$true)][string]$Username,
@@ -8,9 +8,9 @@ function ConvertTo-ByteArray {
     )   
     
     try{
-        [System.Text.Encoding]::UTF8.GetBytes($($Username + ':' + $APIKey))
+        'Basic ' + $([convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes($Username + ':' + $APIKey))) 
     }
     catch{
-        Throw "Error encoding to bytes: $_"
+        Throw "Error building WebClientHeader: $_"
     }
 }
