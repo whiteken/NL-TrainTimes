@@ -22,6 +22,7 @@ function Get-NSXML {
     
     try{
         [xml]$webClient.DownloadString($URI)
+        $webClient.Dispose()
     }
     catch{
         Throw "Cannot download info from NS website: $_"        

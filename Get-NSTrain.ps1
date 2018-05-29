@@ -35,7 +35,7 @@ Gets information about next 10 trains from Amsterdam Zuid to Duivendrecht
 
         #Optional URL
         [Parameter(Position = 2)]
-        [URI]$URI = "http://webservices.ns.nl/ns-api-treinplanner"
+        [uri]$URI = "http://webservices.ns.nl/ns-api-treinplanner"
     )
     
     #Get todays date 
@@ -51,8 +51,7 @@ Gets information about next 10 trains from Amsterdam Zuid to Duivendrecht
         Throw "Unable to retrieve API credentials. Check that dummy values from APICredential.psd1 are updated: $_"
     }
     
-    $credentials = ConvertTo-ByteArray -Username $apiUser.Username -APIKey $apiUser.APIKey | ConvertTo-Base64String
-    $formatCred = 'Basic ' + $credentials
+    $formatCred = Get-NSWebClientHeader -Username $apiUser.Username -APIKey $apiUser.APIKey
 
     [xml]$xml = Get-NSXML -WebClientHeaderAuth $formatCred -URI $filteredURI
     
