@@ -7,7 +7,7 @@
 $BuildFolder = (Split-Path -Parent $MyInvocation.MyCommand.Path) -replace '\\Tests'
 
 Get-Module NSTrainTime | Remove-Module
-Import-Module "$BuildFolder\NSTrainTime.pds1" –ArgumentList $true -Force -ErrorAction Stop -Verbose -Scope Local
+Import-Module "$BuildFolder\NSTrainTime.psd1" –ArgumentList $true -Force -ErrorAction Stop -Verbose -Scope Local
 $prefix = 'NS'
 
 InModuleScope NSTrainTime {
@@ -15,7 +15,7 @@ InModuleScope NSTrainTime {
     Describe 'NSTrainTime individual pester tests' {
         
         BeforeAll{
-            $manifest = Import-PowerShellDataFile "$BuildFolder\NSTrainTime.pds1"
+            $manifest = Import-PowerShellDataFile "$BuildFolder\NSTrainTime.psd1"
             $manifestFunctions = ($manifest.FunctionsToExport).Split('')
         }      
         
