@@ -55,10 +55,10 @@ InModuleScope NSTrainTime {
             }
 
             try {
-                $result = Get-NSAPICredential
+                Get-NSAPICredential
             }
             catch{
-                $result = $_
+                $result = $_.Exception
             }
 
             It "Should throw if file is not available" {
