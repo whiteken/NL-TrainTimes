@@ -51,21 +51,21 @@ InModuleScope NSTrainTime {
         Context "Powershell data file is not available" {
             
             Mock -CommandName Import-PowerShellDataFile -MockWith {
-                Throw '[Pester]'
+                Throw '>>Pester<<'
             }
 
             try {
-                Get-NSAPICredential
+                $result = Get-NSAPICredential -ErrorAction Stop
             }
             catch{
                 $result = $_.Exception
             }
 
-            It "Should throw if file is not available" {
-                $result | Should -BeExactly "Error loading API credential info from PowershellDataFile: [Pester]"
+            It 'Should throw if file is not available' {
+                $result | Should -BeLike "*>>Pester<<*"
             }
 
-            It 'Calls Import-PowerShellDataFile exactly once' {    
+            It 'Calls Import-PowerShellDataFile exactly once' {
                 Assert-MockCalled Import-PowerShellDataFile -Exactly 1 -Scope Context
             }
         }
