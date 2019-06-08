@@ -4,6 +4,8 @@
     [parameter()][string]$BuildFolder='..'
 )
 
+$BuildFolder = Split-Path -Parent $MyInvocation.MyCommand.Path
+
 Get-Module NSTrainTime | Remove-Module
 Import-Module NSTrainTime –ArgumentList $true -Force -ErrorAction Stop -Verbose -Scope Local
 $prefix = 'NS'
