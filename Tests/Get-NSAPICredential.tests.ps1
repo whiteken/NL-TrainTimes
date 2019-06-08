@@ -62,7 +62,7 @@ InModuleScope NSTrainTime {
             }
 
             It "Should throw if file is not available" {
-                $result | Should -BeExactly "Error loading API credential info from PowershellDataFile: [Pester]" -Because 'This function must throw when no file is available since we need it to talk to the API.'
+                $result | Should -BeExactly "Error loading API credential info from PowershellDataFile: [Pester]"
             }
 
             It 'Calls Import-PowerShellDataFile exactly once' {    
