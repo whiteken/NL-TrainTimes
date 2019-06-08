@@ -1,4 +1,4 @@
 @{
-    Username = '<emailaddress@domain.com>'
-    Password = '<APIKey>'
+    Username = '<email@address.com>'
+    APIKey = '<Update with your APIKEY from NS>'
 }

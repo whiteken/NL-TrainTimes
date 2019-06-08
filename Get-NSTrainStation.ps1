@@ -3,7 +3,7 @@ function Get-NSTrainStation{
 
     [cmdletbinding()]
     [alias('gnsts')]
-        
+
     Param(
         #Station or part-station name
         [Parameter(Mandatory=$true,Position=0)]
@@ -15,21 +15,17 @@ function Get-NSTrainStation{
     )
 
     try{
-        $apiUser = Get-NSAPICredential -ErrorAction Stop
+        $apiUser = Get-NSAPICredential -ErrorAction Stop -verbose   
     }
     catch{
         Throw "Unable to retrieve API credentials. Check that dummy values from APICredential.psd1 are updated: $_"
     }
-    
-    $credentials = ConvertTo-ByteArray -Username $apiUser.Username -APIKey $apiUser.APIKey | ConvertTo-Base64String
-    $formatCred = 'Basic ' + $credentials
+
+    $formatCred = Get-NSWebClientHeader -Username $apiUser.Username -APIKey $apiUser.APIKey 
 
     [xml]$xml = Get-NSXML -WebClientHeaderAuth $formatCred -URI "http://webservices.ns.nl/ns-api-stations"
 
-    $xml.SelectNodes("//station").Where({$_.name -like "*$StationName*"}).ForEach({$_.name})
+    $xml.SelectNodes("//station").Where({$_.name -like "*$StationName*"}).ForEach({
+        $_.name
+    })
 }
-
-
-
-
-
