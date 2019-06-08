@@ -1,4 +1,13 @@
-Import-Module $PSScriptRoot\..\NSTrainTime.psd1 -ArgumentList $true
+param(
+    #This is passed in from AzureDevOps during the build
+    #otherwise look to the parent folder from where the Tests are located
+    [parameter()][string]$BuildFolder='..'
+)
+
+$global:BuildFolder = (Split-Path -Parent $MyInvocation.MyCommand.Path) -replace '\\Tests'
+
+Get-Module NSTrainTime | Remove-Module
+Import-Module "$BuildFolder\NSTrainTime.psd1" –ArgumentList $true -Force -ErrorAction Stop -Verbose -Scope Local
 
 InModuleScope NSTrainTime {
     Describe Get-NSAPICredential {
