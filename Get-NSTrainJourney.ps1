@@ -1,3 +1,4 @@
+#Requires -Module @{ModuleName='NSTrainTime'; RequiredVersion='1.1.0.0'}
 function Get-NSTrainJourney {
 <#
 .SYNOPSIS
@@ -41,8 +42,8 @@ Gets information about next 10 trains from Amsterdam Zuid to Duivendrecht
         [Parameter(Position = 2)]
         [uri]$URI = "http://webservices.ns.nl/ns-api-treinplanner"
     )
-    
-    #Get todays date 
+
+    #Get todays date
     $date = Get-Date -format s
 
     #Add the filters
@@ -54,26 +55,19 @@ Gets information about next 10 trains from Amsterdam Zuid to Duivendrecht
     catch{
         Throw "Unable to retrieve API credentials. Check that dummy values from APICredential.psd1 are updated: $_"
     }
-    
+
     $formatCred = Get-NSWebClientHeader -Username $apiUser.Username -APIKey $apiUser.APIKey
 
     [xml]$xml = Get-NSXML -WebClientHeaderAuth $formatCred -URI $filteredURI
-    
+
     $filtered = @()
 
     $xml.SelectNodes('//ReisMogelijkheid') | ForEach-Object {
-    
+
         [datetime]$StartDate = $_.GeplandeVertrekTijd
         [datetime]$EndDate = $_.ActueleVertrekTijd
-        
-        $delay = New-TimeSpan -Start $StartDate -End $EndDate
-        
-        #if ($delay -eq 0) {
-        #    $delay = $null
-        #}
-        #else {
-            $delay = $delay -f '+HH:mm'
-        #}
+
+        $delay = $(New-TimeSpan -Start $StartDate -End $EndDate) -f '+HH:mm'
 
         $result = [NSJourney]::new(
             $fromStation,
@@ -85,7 +79,7 @@ Gets information about next 10 trains from Amsterdam Zuid to Duivendrecht
             $(Get-Date ($_.ActueleAankomstTijd) -f HH:mm),
             $_.Status
         )
-    
+
         if($Next){
             if($result.Departure -ge [datetime]::Now){
                 $filtered += $result
@@ -94,7 +88,6 @@ Gets information about next 10 trains from Amsterdam Zuid to Duivendrecht
         else{
             $result
         }
-
     }
 
     if($Next){

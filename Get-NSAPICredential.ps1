@@ -1,3 +1,4 @@
+#Requires -Module @{ModuleName='NSTrainTime'; RequiredVersion='1.1.0.0'}
 function Get-NSAPICredential{
 
     [cmdletbinding()]

@@ -1,4 +1,4 @@
-   
+#Requires -Module @{ModuleName='NSTrainTime'; RequiredVersion='1.1.0.0'}
 function Get-NSXML {
 
     [cmdletbinding()]
@@ -19,12 +19,12 @@ function Get-NSXML {
     catch{
         Throw "Web client error: $_"
     }
-    
+
     try{
         [xml]$webClient.DownloadString($URI)
         $webClient.Dispose()
     }
     catch{
-        Throw "Cannot download info from NS website: $_"        
+        Throw "Cannot download info from NS website: $_"
     }
 }

@@ -33,7 +33,7 @@ class nsTrainStationToCompleter : Management.Automation.IArgumentCompleter {
 
         [System.Management.Automation.CompletionResult[]] $result = foreach ($toStation in $(Get-NSTrainStation -StationName $wordToComplete | Sort-Object -Unique)) {
 
-            $toStation = "'$toStation'" 
+            $toStation = "'$toStation'"
 
             [System.Management.Automation.CompletionResult]::new(
                 $toStation,
@@ -68,4 +68,3 @@ class NSJourney
         $this.Status = $Status
     }
 }
-
