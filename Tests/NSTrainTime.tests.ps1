@@ -4,24 +4,24 @@
     [parameter()][string]$BuildFolder='..'
 )
 
-$BuildFolder = (Split-Path -Parent $MyInvocation.MyCommand.Path) -replace '\\Tests'
+$global:BuildFolder = (Split-Path -Parent $MyInvocation.MyCommand.Path) -replace '\\Tests'
 
 Get-Module NSTrainTime | Remove-Module
 Import-Module "$BuildFolder\NSTrainTime.psd1" –ArgumentList $true -Force -ErrorAction Stop -Verbose -Scope Local
 $prefix = 'NS'
 
 InModuleScope NSTrainTime {
-    
+        
     Describe 'NSTrainTime individual pester tests' {
         
         BeforeAll{
-            $manifest = Import-PowerShellDataFile "$BuildFolder\NSTrainTime.psd1"
+            $manifest = Import-PowerShellDataFile "$global:BuildFolder\NSTrainTime.psd1"
             $manifestFunctions = ($manifest.FunctionsToExport).Split('')
         }      
         
         foreach($functionName in $manifestFunctions){
             
-            $functionFile = "$BuildFolder\$functionName.ps1"
+            $functionFile = "$global:BuildFolder\$functionName.ps1"
 
             Context "Standardised module tests for $functionName function"{
                 
@@ -90,7 +90,7 @@ InModuleScope NSTrainTime {
 
                     It "Alias from function file '$functionFileAlias' should also be exported in module manifest" {
 
-                       $result = [string[]](Import-PowerShellDataFile $global:testFile).AliasesToExport -contains $functionFileAlias
+                       $result = [string[]](Import-PowerShellDataFile "$global:BuildFolder\NSTrainTime.psd1").AliasesToExport -contains $functionFileAlias
                        $result | Should -Be $true
                     }
                 }
@@ -100,7 +100,7 @@ InModuleScope NSTrainTime {
         Context 'Checking files to test exist and Invoke-ScriptAnalyzer is available'{
             
             It 'Checking files exist to test'{
-                $moduleFiles = Get-ChildItem $BuildFolder\* -Include *.psd1, *.psm1, *.ps1 -Exclude *.tests.ps1 -Recurse
+                $moduleFiles = Get-ChildItem $global:BuildFolder\* -Include *.psd1, *.psm1, *.ps1 -Exclude *.tests.ps1 -Recurse
                 $moduleFiles.count | Should Not Be 0
             }          
             
@@ -110,7 +110,7 @@ InModuleScope NSTrainTime {
         }
 
         $scriptAnalyzerRules = Get-ScriptAnalyzerRule
-        $moduleFiles = Get-ChildItem $BuildFolder\* -Include *.psd1, *.psm1, *.ps1 -Exclude *.tests.ps1, *.txt -Recurse
+        $moduleFiles = Get-ChildItem $global:BuildFolder\* -Include *.psd1, *.psm1, *.ps1 -Exclude *.tests.ps1, *.txt -Recurse
 
         foreach ($file in $moduleFiles){
             
