@@ -5,7 +5,7 @@
 )
 
 Get-Module NSTrainTime | Remove-Module
-Import-Module $BuildFolder\NSTrainTime.psd1 –ArgumentList $true -Force -ErrorAction Stop -Verbose:$false
+Import-Module NSTrainTime –ArgumentList $true -Force -ErrorAction Stop -Verbose -Scope Local
 $prefix = 'NS'
 
 InModuleScope NSTrainTime {
@@ -13,7 +13,7 @@ InModuleScope NSTrainTime {
     Describe 'NSTrainTime individual pester tests' {
         
         BeforeAll{
-            $manifest = Import-PowerShellDataFile $BuildFolder\NSTrainTime.psd1
+            $manifest = Import-PowerShellDataFile NSTrainTime
             $manifestFunctions = ($manifest.FunctionsToExport).Split('')
         }      
         
