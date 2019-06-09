@@ -33,6 +33,9 @@ steps:
       searchFolder: '$(Build.SourcesDirectory)'
       mergeTestResults: true
   
-  - task: PublishBuildArtifacts@1
-    displayName: 'Build Artifact (master only)'
+  - task: PSGalleryPackager@0
+    displayName: 'Publish to PS Gallery (master only)'
+    inputs:
+        apiKey: '$(PSGallery-APIKey)'
+        path: '\Module'
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
