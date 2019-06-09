@@ -6,8 +6,10 @@ trigger:
 pr:
   autoCancel: true # indicates whether additional pushes to a PR should cancel in-progress runs for the same PR. Defaults to true
   branches:
-    include: master
-    exclude: dev
+   include: 
+   - master
+   exclude: 
+   - dev
 
 pool:
   name: Hosted VS2017
