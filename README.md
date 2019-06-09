@@ -1,10 +1,10 @@
 # NSTrainTime 
 
-Build Status:
 
-| Dev | Master |
+| | Dev | Master |
 |----------|----------|
-|[![Build Status](https://darkcrystal.visualstudio.com/NSTrainTime/_apis/build/status/whiteken.NSTrainTime?branchName=dev)](https://darkcrystal.visualstudio.com/NSTrainTime/_build/latest?definitionId=4&branchName=dev)|[![Build Status](https://darkcrystal.visualstudio.com/NSTrainTime/_apis/build/status/whiteken.NSTrainTime?branchName=master)](https://darkcrystal.visualstudio.com/NSTrainTime/_build/latest?definitionId=4&branchName=master)|
+|Build|[![Build Status](https://darkcrystal.visualstudio.com/NSTrainTime/_apis/build/status/whiteken.NSTrainTime?branchName=dev)](https://darkcrystal.visualstudio.com/NSTrainTime/_build/latest?definitionId=4&branchName=dev)|[![Build Status](https://darkcrystal.visualstudio.com/NSTrainTime/_apis/build/status/whiteken.NSTrainTime?branchName=master)](https://darkcrystal.visualstudio.com/NSTrainTime/_build/latest?definitionId=4&branchName=master)|
+|Release| | |
 
 ## PowerShell Module (v5+) for Dutch train times between two stations 
 ## Trein dienstregeling
