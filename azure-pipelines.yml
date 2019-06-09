@@ -2,6 +2,10 @@ name: $(Build.DefinitionName)_$(Build.SourceBranchName)_$(Date:yyyyMMdd))
 
 trigger:
 - dev
+- master
+
+pr:
+- none  
 
 pool:
   name: Hosted VS2017
