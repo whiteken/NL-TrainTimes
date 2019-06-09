@@ -34,5 +34,5 @@ steps:
     displayName: 'Publish to PS Gallery (master only)'
     inputs:
         apiKey: '$(PSGallery-APIKey)'
-        path: '\Module'
+        path: '$(Build.SourcesDirectory)\Module'
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
