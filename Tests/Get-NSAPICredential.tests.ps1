@@ -1,4 +1,4 @@
-param($BuildFolder)
+param($global:BuildFolder)
 
 $global:BuildFolder = (Split-Path -Parent $MyInvocation.MyCommand.Path) -replace '\\Tests','\Module'
 
