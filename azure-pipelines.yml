@@ -1,4 +1,4 @@
-name: $(Build.DefinitionName)_$(Date:yyyyMMdd))
+name: $(Build.DefinitionName)_$(Build.SourceBranchName)_$(Date:yyyyMMdd))
 
 trigger:
 - dev
@@ -32,4 +32,5 @@ steps:
       mergeTestResults: true
   
   - task: PublishBuildArtifacts@1
+    displayName: 'Build Artifact (master only)'
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
