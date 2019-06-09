@@ -1,31 +1,71 @@
 name: $(Build.DefinitionName)_$(Date:yyyyMMdd))
 
-trigger:
-- dev
+stages:
+- stage: dev
 
-pool:
-  name: Hosted VS2017
+  trigger:
+  - dev
 
-steps:
-- task: richardfennellBM.BM-VSTS-PesterRunner-Task.Pester-Task.Pester@7
-  displayName: 'Pester Test Module'
-  inputs:
-    scriptFolder: 'hashtable @{Path="$(Build.SourcesDirectory)\Tests\NSTrainTime.tests.ps1";Parameters=@{BuildFolder="$(Build.SourcesDirectory)"}} '
-    additionalModulePath: '$(Build.SourcesDirectory)'
-    ForceUseOfPesterInTasks: true
+  pool:
+    name: Hosted VS2017
 
-- task: richardfennellBM.BM-VSTS-PesterRunner-Task.Pester-Task.Pester@7
-  displayName: 'Pester Test Functions'
-  inputs:
-    scriptFolder: 'hashtable @{Path="$(Build.SourcesDirectory)\Tests\Get-NSAPICredential.tests.ps1";Parameters=@{BuildFolder="$(Build.SourcesDirectory)"}} '
-    additionalModulePath: '$(Build.SourcesDirectory)'
-    ForceUseOfPesterInTasks: true
-  enabled: false
+  steps:
+  - task: richardfennellBM.BM-VSTS-PesterRunner-Task.Pester-Task.Pester@7
+    displayName: 'Pester Test Module'
+    inputs:
+      scriptFolder: 'hashtable @{Path="$(Build.SourcesDirectory)\Tests\NSTrainTime.tests.ps1";Parameters=@{BuildFolder="$(Build.SourcesDirectory)"}} '
+      additionalModulePath: '$(Build.SourcesDirectory)'
+      ForceUseOfPesterInTasks: true
 
-- task: PublishTestResults@2
-  displayName: 'Publish Test Results'
-  inputs:
-    testResultsFormat: NUnit
-    testResultsFiles: 'Test-Pester.XML'
-    searchFolder: '$(Build.SourcesDirectory)'
-    mergeTestResults: true
+  - task: richardfennellBM.BM-VSTS-PesterRunner-Task.Pester-Task.Pester@7
+    displayName: 'Pester Test Functions'
+    inputs:
+      scriptFolder: 'hashtable @{Path="$(Build.SourcesDirectory)\Tests\Get-NSAPICredential.tests.ps1";Parameters=@{BuildFolder="$(Build.SourcesDirectory)"}} '
+      additionalModulePath: '$(Build.SourcesDirectory)'
+      ForceUseOfPesterInTasks: true
+    enabled: false
+
+  - task: PublishTestResults@2
+    displayName: 'Publish Test Results'
+    inputs:
+      testResultsFormat: NUnit
+      testResultsFiles: 'Test-Pester.XML'
+      searchFolder: '$(Build.SourcesDirectory)'
+      mergeTestResults: true
+
+- stage: prod
+
+  pr:
+  - master
+
+  pool:
+    name: Hosted VS2017
+
+  steps:
+  - task: richardfennellBM.BM-VSTS-PesterRunner-Task.Pester-Task.Pester@7
+    displayName: 'Pester Test Module'
+    inputs:
+      scriptFolder: 'hashtable @{Path="$(Build.SourcesDirectory)\Tests\NSTrainTime.tests.ps1";Parameters=@{BuildFolder="$(Build.SourcesDirectory)"}} '
+      additionalModulePath: '$(Build.SourcesDirectory)'
+      ForceUseOfPesterInTasks: true
+
+  - task: richardfennellBM.BM-VSTS-PesterRunner-Task.Pester-Task.Pester@7
+    displayName: 'Pester Test Functions'
+    inputs:
+      scriptFolder: 'hashtable @{Path="$(Build.SourcesDirectory)\Tests\Get-NSAPICredential.tests.ps1";Parameters=@{BuildFolder="$(Build.SourcesDirectory)"}} '
+      additionalModulePath: '$(Build.SourcesDirectory)'
+      ForceUseOfPesterInTasks: true
+    enabled: false
+
+  - task: PublishTestResults@2
+    displayName: 'Publish Test Results'
+    inputs:
+      testResultsFormat: NUnit
+      testResultsFiles: 'Test-Pester.XML'
+      searchFolder: '$(Build.SourcesDirectory)'
+      mergeTestResults: true  
+
+  - powershell: Invoke-Build -Configuration 'Production' -Task Clean, CopyModuleFiles, PublishModule
+    displayName: 'Publish PowerShell Module'
+    env:
+    psgallery: $(NugetAPIKey)
