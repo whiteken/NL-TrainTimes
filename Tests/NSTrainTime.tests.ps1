@@ -1,6 +1,6 @@
 ﻿param($global:BuildFolder)
 
-$global:BuildFolder = (Split-Path -Parent $MyInvocation.MyCommand.Path) -replace '\\Tests','\Module'
+$global:BuildFolder = (Split-Path -Parent $MyInvocation.MyCommand.Path) -replace '\\Tests','\NSTrainTime'
 
 Get-Module NSTrainTime | Remove-Module
 Import-Module "$global:buildFolder\NSTrainTime.psd1" –ArgumentList $true -Force -ErrorAction Stop -Verbose -Scope Local
