@@ -3,7 +3,7 @@ function Get-NSTrainStation{
 
 <#
 .SYNOPSIS
-Find a list of matching Dutch train stations
+Find a list of matching Dutch train stations.
 
 .DESCRIPTION
 Gets train station names from the Dutch NS API (https://www.ns.nl/en/travel-information/ns-api)

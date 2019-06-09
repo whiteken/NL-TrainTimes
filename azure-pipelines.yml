@@ -1,31 +1,36 @@
-name: $(Build.DefinitionName)_$(Date:yyyyMMdd))
+name: $(Build.DefinitionName)_$(Build.SourceBranchName)_$(Date:yyyyMMdd))
 
 trigger:
 - dev
+- master
 
 pool:
   name: Hosted VS2017
 
 steps:
-- task: richardfennellBM.BM-VSTS-PesterRunner-Task.Pester-Task.Pester@7
-  displayName: 'Pester Test Module'
-  inputs:
-    scriptFolder: 'hashtable @{Path="$(Build.SourcesDirectory)\Tests\NSTrainTime.tests.ps1";Parameters=@{BuildFolder="$(Build.SourcesDirectory)"}} '
-    additionalModulePath: '$(Build.SourcesDirectory)'
-    ForceUseOfPesterInTasks: true
+  - task: richardfennellBM.BM-VSTS-PesterRunner-Task.Pester-Task.Pester@7
+    displayName: 'Pester Test Module'
+    inputs:
+      scriptFolder: 'hashtable @{Path="$(Build.SourcesDirectory)\Tests\NSTrainTime.tests.ps1";Parameters=@{BuildFolder="$(Build.SourcesDirectory)"}} '
+      additionalModulePath: '$(Build.SourcesDirectory)'
+      ForceUseOfPesterInTasks: true
 
-- task: richardfennellBM.BM-VSTS-PesterRunner-Task.Pester-Task.Pester@7
-  displayName: 'Pester Test Functions'
-  inputs:
-    scriptFolder: 'hashtable @{Path="$(Build.SourcesDirectory)\Tests\Get-NSAPICredential.tests.ps1";Parameters=@{BuildFolder="$(Build.SourcesDirectory)"}} '
-    additionalModulePath: '$(Build.SourcesDirectory)'
-    ForceUseOfPesterInTasks: true
-  enabled: false
+  - task: richardfennellBM.BM-VSTS-PesterRunner-Task.Pester-Task.Pester@7
+    displayName: 'Pester Test Functions'
+    inputs:
+      scriptFolder: 'hashtable @{Path="$(Build.SourcesDirectory)\Tests\Get-NSAPICredential.tests.ps1";Parameters=@{BuildFolder="$(Build.SourcesDirectory)"}} '
+      additionalModulePath: '$(Build.SourcesDirectory)'
+      ForceUseOfPesterInTasks: true
+    enabled: false
 
-- task: PublishTestResults@2
-  displayName: 'Publish Test Results'
-  inputs:
-    testResultsFormat: NUnit
-    testResultsFiles: 'Test-Pester.XML'
-    searchFolder: '$(Build.SourcesDirectory)'
-    mergeTestResults: true
+  - task: PublishTestResults@2
+    displayName: 'Publish Test Results'
+    inputs:
+      testResultsFormat: NUnit
+      testResultsFiles: 'Test-Pester.XML'
+      searchFolder: '$(Build.SourcesDirectory)'
+      mergeTestResults: true
+  
+  - task: PublishBuildArtifacts@1
+    displayName: 'Build Artifact (master only)'
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
