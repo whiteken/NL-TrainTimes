@@ -1,3 +1,5 @@
+name: $(Build.DefinitionName)_$(Date:yyyyMMdd))
+
 trigger:
 - dev
 
