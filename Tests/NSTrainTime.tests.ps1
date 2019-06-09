@@ -1,13 +1,9 @@
-﻿param(
-    #This is passed in from AzureDevOps during the build
-    #otherwise look to the parent folder from where the Tests are located
-    [parameter()][string]$BuildFolder='..'
-)
+﻿param($global:BuildFolder)
 
-$global:BuildFolder = (Split-Path -Parent $MyInvocation.MyCommand.Path) -replace '\\Tests'
+$global:BuildFolder = (Split-Path -Parent $MyInvocation.MyCommand.Path) -replace '\\Tests','\Module'
 
 Get-Module NSTrainTime | Remove-Module
-Import-Module "$BuildFolder\NSTrainTime.psd1" –ArgumentList $true -Force -ErrorAction Stop -Verbose -Scope Local
+Import-Module "$global:buildFolder\NSTrainTime.psd1" –ArgumentList $true -Force -ErrorAction Stop -Verbose -Scope Local
 $prefix = 'NS'
 
 InModuleScope NSTrainTime {
