@@ -15,14 +15,14 @@ steps:
     displayName: 'Pester Test Module'
     inputs:
       scriptFolder: 'hashtable @{Path="$(Build.SourcesDirectory)\Tests\NSTrainTime.tests.ps1";Parameters=@{BuildFolder="$(Build.SourcesDirectory)"}} '
-      additionalModulePath: '$(Build.SourcesDirectory)'
+      additionalModulePath: '$(Build.SourcesDirectory)\NSTrainTime'
       ForceUseOfPesterInTasks: true
 
   - task: richardfennellBM.BM-VSTS-PesterRunner-Task.Pester-Task.Pester@7
     displayName: 'Pester Test Functions'
     inputs:
       scriptFolder: 'hashtable @{Path="$(Build.SourcesDirectory)\Tests\Get-NSAPICredential.tests.ps1";Parameters=@{BuildFolder="$(Build.SourcesDirectory)"}} '
-      additionalModulePath: '$(Build.SourcesDirectory)'
+      additionalModulePath: '$(Build.SourcesDirectory)\NSTrainTime'
       ForceUseOfPesterInTasks: true
     enabled: false
 
@@ -33,10 +33,25 @@ steps:
       testResultsFiles: 'Test-Pester.XML'
       searchFolder: '$(Build.SourcesDirectory)'
       mergeTestResults: true
-  
-  - task: PSGalleryPackager@0
-    displayName: 'Publish to PS Gallery (master only)'
+
+  - task: PowerShell@2
     inputs:
+      targetType: 'filePath' # 'filePath' or 'inline'; defaults to filePath
+      filePath: '$(Build.SourcesDirectory)\Publish-NSTrainTime.ps1' # required when targetType == FilePath
+      arguments: # optional arguments passed to PowerShell
         apiKey: '$(PSGallery-APIKey)'
-        path: '$(Build.SourcesDirectory)\Module'
+        path: '$(Build.SourcesDirectory)\NSTrainTime'
+      #script: # required when targetType == Inline; actual contents of the script
+      #errorActionPreference: # options: stop, continue, silentlyContinue; defaults to 'stop'
+      #failOnStderr: # optional, defaults to false
+      #ignoreLASTEXITCODE: # optional, defaults to false
+      pwsh: true # optional, always use PowerShell Core (even on Windows); defaults to false
+      workingDirectory: '$(Build.SourcesDirectory)\NSTrainTime' # optional, initial working directory
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+
+  - #task: PSGalleryPackager@0
+    #displayName: 'Publish to PS Gallery (master only)'
+    #inputs:
+    #    apiKey: '$(PSGallery-APIKey)'
+    #    path: '$(Build.SourcesDirectory)\NSTrainTime'
+    #condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
