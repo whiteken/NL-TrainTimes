@@ -1,5 +1,8 @@
 name: $(Build.DefinitionName)_$(Build.SourceBranchName)_$(Date:yyyyMMdd))
 
+variables:
+- group: pipeline-variables
+
 trigger:
 - dev
 - master
