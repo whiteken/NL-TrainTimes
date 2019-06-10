@@ -38,9 +38,7 @@ steps:
     inputs:
       targetType: 'filePath' # 'filePath' or 'inline'; defaults to filePath
       filePath: '$(Build.SourcesDirectory)\Publish-NSTrainTime.ps1' # required when targetType == FilePath
-      arguments: # optional arguments passed to PowerShell
-        apiKey: '$(PSGallery-APIKey)'
-        path: '$(Build.SourcesDirectory)\NSTrainTime'
+      arguments: '-apikey $(PSGallery-APIKey) -path $(Build.SourcesDirectory)\NSTrainTime'
       #script: # required when targetType == Inline; actual contents of the script
       #errorActionPreference: # options: stop, continue, silentlyContinue; defaults to 'stop'
       #failOnStderr: # optional, defaults to false
