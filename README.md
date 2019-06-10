@@ -23,13 +23,20 @@ Once the module is loaded, the Get-NSTrainJourney function shows the last and ne
 
 Import-Module NSTrainTime
 
-Get-NSTrainJourney -fromStation 'Amsterd... tab to complete' -toStation 'Duiven... tab to complete'
+Get-NSTrainJourney -fromStation 'Amsterdam' -toStation 'Duivendrecht'
 
-Returns full set of trains journeys from the api - usually 21.
+```
 
-Get-NSTrainJourney -fromStation 'Amsterd... tab to complete' -toStation 'Duiven... tab to complete' -Next 2
+Returns full set of trains journeys from the api (21 at time of writing)
+
+```powershell
+
+Get-NSTrainJourney -fromStation 'Amsterdam' -toStation 'Duivendrecht' -Next 2
+
+```
 
 Returns only the next 2 trains based on current time.
 
 ```
 
+Tab completion is enabled on -fromStation and -toStation parameters so it's not necessary to know the full station name.  Type the first few letters and hit tab.
