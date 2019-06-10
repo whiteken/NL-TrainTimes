@@ -47,7 +47,7 @@ steps:
       workingDirectory: '$(Build.SourcesDirectory)\NSTrainTime' # optional, initial working directory
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
 
-  - #task: PSGalleryPackager@0
+    #task: PSGalleryPackager@0
     #displayName: 'Publish to PS Gallery (master only)'
     #inputs:
     #    apiKey: '$(PSGallery-APIKey)'
