@@ -35,6 +35,7 @@ steps:
       mergeTestResults: true
 
   - task: PowerShell@2
+    displayName: 'Publish to PS Gallery (master only)'
     inputs:
       targetType: 'filePath' # 'filePath' or 'inline'; defaults to filePath
       filePath: '$(Build.SourcesDirectory)\Publish-NSTrainTime.ps1' # required when targetType == FilePath
