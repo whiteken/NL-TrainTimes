@@ -37,6 +37,4 @@ Get-NSTrainJourney -fromStation 'Amsterdam' -toStation 'Duivendrecht' -Next 2
 
 Returns only the next 2 trains based on current time.
 
-```
-
 Tab completion is enabled on -fromStation and -toStation parameters so it's not necessary to know the full station name.  Type the first few letters and hit tab.
