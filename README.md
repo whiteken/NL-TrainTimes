@@ -7,7 +7,7 @@
 
 | | Production | Stats |
 |----------|----------|----------|
-| Release |[![PSGallery Version](https://img.shields.io/powershellgallery/v/NSTrainTime.svg?style=for-the-badge&label=PowerShell%20Gallery)](https://www.powershellgallery.com/packages/NSTrainTime/) | [![PSGallery Downloads](https://img.shields.io/powershellgallery/dt/NSTrainTime.svg?style=for-the-badge&label=Downloads)](https://www.powershellgallery.com/packages/NSTrainTime/) |
+| Release |[![PSGallery Version](https://img.shields.io/powershellgallery/v/NSTrainTime.svg?style=plastic&label=PowerShell%20Gallery)](https://www.powershellgallery.com/packages/NSTrainTime/) | [![PSGallery Downloads](https://img.shields.io/powershellgallery/dt/NSTrainTime.svg?style=plastic&label=Downloads)](https://www.powershellgallery.com/packages/NSTrainTime/) |
 
 ## PowerShell Module (v5+) for Dutch train times between two stations 
 ## Trein dienstregeling
