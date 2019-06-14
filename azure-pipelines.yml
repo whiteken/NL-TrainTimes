@@ -49,7 +49,7 @@ steps:
       scriptFolder: 'hashtable @{Path="$(Build.SourcesDirectory)\Tests\PSScriptAnalyzer.tests.ps1";Parameters=@{BuildFolder="$(Build.SourcesDirectory)"}} '
       additionalModulePath: '$(Build.SourcesDirectory)\NSTrainTime'
       ForceUseOfPesterInTasks: true
-    enabled: true
+    enabled: false
 
   - task: RunPsScriptAnalyzer@1
     displayName: 'PsScriptAnalyzer Task'
