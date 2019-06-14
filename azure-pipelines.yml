@@ -35,7 +35,12 @@ steps:
       scriptFolder: 'hashtable @{Path="$(Build.SourcesDirectory)\Tests\PSScriptAnalyzer.tests.ps1";Parameters=@{BuildFolder="$(Build.SourcesDirectory)"}} '
       additionalModulePath: '$(Build.SourcesDirectory)\NSTrainTime'
       ForceUseOfPesterInTasks: true
-    enabled: true
+    enabled: false
+
+  - task: RunPsScriptAnalyzer@1
+    displayName: 'PsScriptAnalyzer Task'
+    inputs:
+      PsFolder: '$(Build.SourcesDirectory)\NSTrainTime'
 
   - task: PublishTestResults@2
     displayName: 'Publish Test Results'
@@ -59,9 +64,9 @@ steps:
   #   workingDirectory: '$(Build.SourcesDirectory)\NSTrainTime' # optional, initial working directory
   # condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
 
-  - task: PSGalleryPackager@0
-    displayName: 'Publish to PS Gallery (master only)'
-    inputs:
-        apiKey: '$(PSGallery-APIKey)'
-        path: '$(Build.SourcesDirectory)\NSTrainTime'
-    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  #- task: PSGalleryPackager@0
+  #  displayName: 'Publish to PS Gallery (master only)'
+  #  inputs:
+  #      apiKey: '$(PSGallery-APIKey)'
+  #      path: '$(Build.SourcesDirectory)\NSTrainTime'
+  #  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
