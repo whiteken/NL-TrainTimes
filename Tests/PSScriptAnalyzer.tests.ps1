@@ -33,7 +33,7 @@ InModuleScope NSTrainTime {
 
                 Context "Checking $($file.name) - meets $testType PSScriptAnalyzer Rule"{
                     foreach ($scriptAnalyzerRule in $scriptAnalyzerRules){
-                        It "Script Analyzer Rule $scriptAnalyzerRule"{
+                        It "Script Analyzer Rule $scriptAnalyzerRule" {
                             (Invoke-ScriptAnalyzer -Path $file -IncludeRule $scriptAnalyzerRule).count | Should Be 0
                         }
                     }
