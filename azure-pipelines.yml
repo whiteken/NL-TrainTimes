@@ -35,7 +35,7 @@ steps:
       scriptFolder: 'hashtable @{Path="$(Build.SourcesDirectory)\Tests\PSScriptAnalyzer.tests.ps1";Parameters=@{BuildFolder="$(Build.SourcesDirectory)"}} '
       additionalModulePath: '$(Build.SourcesDirectory)\NSTrainTime'
       ForceUseOfPesterInTasks: true
-    enabled: false
+    enabled: true
 
   - task: PublishTestResults@2
     displayName: 'Publish Test Results'
