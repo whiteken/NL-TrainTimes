@@ -37,23 +37,23 @@ steps:
       searchFolder: '$(Build.SourcesDirectory)'
       mergeTestResults: true
 
-  - task: PowerShell@2
+  #- task: PowerShell@2
+  # displayName: 'Publish to PS Gallery (master only)'
+  # inputs:
+  #   targetType: 'filePath' # 'filePath' or 'inline'; defaults to filePath
+  #   filePath: '$(Build.SourcesDirectory)\Publish-NSTrainTime.ps1' # required when targetType == FilePath
+  #   arguments: '-apikey $(PSGallery-APIKey) -path $(Build.SourcesDirectory)\NSTrainTime'
+  #   #script: # required when targetType == Inline; actual contents of the script
+  #   #errorActionPreference: # options: stop, continue, silentlyContinue; defaults to 'stop'
+  #   #failOnStderr: # optional, defaults to false
+  #   #ignoreLASTEXITCODE: # optional, defaults to false
+  #   pwsh: true # optional, always use PowerShell Core (even on Windows); defaults to false
+  #   workingDirectory: '$(Build.SourcesDirectory)\NSTrainTime' # optional, initial working directory
+  # condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+
+  - task: PSGalleryPackager@0
     displayName: 'Publish to PS Gallery (master only)'
     inputs:
-      targetType: 'filePath' # 'filePath' or 'inline'; defaults to filePath
-      filePath: '$(Build.SourcesDirectory)\Publish-NSTrainTime.ps1' # required when targetType == FilePath
-      arguments: '-apikey $(PSGallery-APIKey) -path $(Build.SourcesDirectory)\NSTrainTime'
-      #script: # required when targetType == Inline; actual contents of the script
-      #errorActionPreference: # options: stop, continue, silentlyContinue; defaults to 'stop'
-      #failOnStderr: # optional, defaults to false
-      #ignoreLASTEXITCODE: # optional, defaults to false
-      pwsh: true # optional, always use PowerShell Core (even on Windows); defaults to false
-      workingDirectory: '$(Build.SourcesDirectory)\NSTrainTime' # optional, initial working directory
+        apiKey: '$(PSGallery-APIKey)'
+        path: '$(Build.SourcesDirectory)\NSTrainTime'
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
-
-    #task: PSGalleryPackager@0
-    #displayName: 'Publish to PS Gallery (master only)'
-    #inputs:
-    #    apiKey: '$(PSGallery-APIKey)'
-    #    path: '$(Build.SourcesDirectory)\NSTrainTime'
-    #condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
