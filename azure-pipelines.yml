@@ -11,7 +11,7 @@ pr:
 - none  
 
 pool:
-  name: windows-2019
+  name: Hosted Windows Container
 
 steps:
   - task: richardfennellBM.BM-VSTS-PesterRunner-Task.Pester-Task.Pester@7
