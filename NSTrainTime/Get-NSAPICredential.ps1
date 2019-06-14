@@ -5,13 +5,21 @@ function Get-NSAPICredential{
 
     Param(
         #Path to powershell data file containing API credential info
-        [Parameter()][string]$PowershellDataFile ="APICredential.psd1"
+        [Parameter()][string]$PowershellDataFile ="$PSScriptRoot\APICredential.psd1"
     )
 
     try{
-        Import-PowershellDataFile $PowershellDataFile -ErrorAction Stop
+        $result = Import-PowershellDataFile $PowershellDataFile -ErrorAction Stop
     }
     catch{
         Throw "Error loading API credential info from PowershellDataFile: $_"
+    }
+
+    if($result.Username -eq '<email@address.com>'){
+        Write-Warning 'Before using this module you must update the APIcredentials.psd1 file'
+        Break
+    }
+    else{
+        $result
     }
 }
