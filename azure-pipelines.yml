@@ -14,6 +14,20 @@ pool:
   name: Hosted Windows Container
 
 steps:
+  - task: PowerShell@2
+    displayName: 'Check for pre-requisite modules'
+    inputs:
+      targetType: 'filePath' # 'filePath' or 'inline'; defaults to filePath
+      filePath: '$(Build.SourcesDirectory)\build.ps1' # required when targetType == FilePath
+      #arguments: '-apikey $(PSGallery-APIKey) -path $(Build.SourcesDirectory)\NSTrainTime'
+      #script: # required when targetType == Inline; actual contents of the script
+      #errorActionPreference: # options: stop, continue, silentlyContinue; defaults to 'stop'
+      #failOnStderr: # optional, defaults to false
+      #ignoreLASTEXITCODE: # optional, defaults to false
+      #pwsh: false # optional, always use PowerShell Core (even on Windows); defaults to false
+      workingDirectory: '$(Build.SourcesDirectory)' # optional, initial working directory
+    #condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+
   - task: richardfennellBM.BM-VSTS-PesterRunner-Task.Pester-Task.Pester@7
     displayName: 'Pester Test - Module'
     inputs:
@@ -37,6 +51,11 @@ steps:
       ForceUseOfPesterInTasks: true
     enabled: false
 
+  - task: RunPsScriptAnalyzer@1
+    displayName: 'PsScriptAnalyzer Task'
+    inputs:
+      PsFolder: '$(Build.SourcesDirectory)\NSTrainTime'
+
   - task: PublishTestResults@2
     displayName: 'Publish Test Results'
     inputs:
@@ -45,23 +64,9 @@ steps:
       searchFolder: '$(Build.SourcesDirectory)'
       mergeTestResults: true
 
-  #- task: PowerShell@2
-  # displayName: 'Publish to PS Gallery (master only)'
-  # inputs:
-  #   targetType: 'filePath' # 'filePath' or 'inline'; defaults to filePath
-  #   filePath: '$(Build.SourcesDirectory)\Publish-NSTrainTime.ps1' # required when targetType == FilePath
-  #   arguments: '-apikey $(PSGallery-APIKey) -path $(Build.SourcesDirectory)\NSTrainTime'
-  #   #script: # required when targetType == Inline; actual contents of the script
-  #   #errorActionPreference: # options: stop, continue, silentlyContinue; defaults to 'stop'
-  #   #failOnStderr: # optional, defaults to false
-  #   #ignoreLASTEXITCODE: # optional, defaults to false
-  #   pwsh: true # optional, always use PowerShell Core (even on Windows); defaults to false
-  #   workingDirectory: '$(Build.SourcesDirectory)\NSTrainTime' # optional, initial working directory
-  # condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
-
-  - task: PSGalleryPackager@0
-    displayName: 'Publish to PS Gallery (master only)'
-    inputs:
-        apiKey: '$(PSGallery-APIKey)'
-        path: '$(Build.SourcesDirectory)\NSTrainTime'
-    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  #- task: PSGalleryPackager@0
+  #  displayName: 'Publish to PS Gallery (master only)'
+  #  inputs:
+  #      apiKey: '$(PSGallery-APIKey)'
+  #      path: '$(Build.SourcesDirectory)\NSTrainTime'
+  #  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
