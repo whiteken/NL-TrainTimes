@@ -38,6 +38,7 @@ steps:
       mergeTestResults: true
 
   - task: CopyFiles@2
+    displayName: 'Stage files for Artifact publish'
     inputs:
       SourceFolder: '$(Build.SourcesDirectory)\NSTrainTime'
       Contents: '**'
@@ -45,6 +46,7 @@ steps:
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
 
   - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact to AZDO pipleines'
     inputs:
       PathtoPublish: '$(Build.ArtifactStagingDirectory)'
       ArtifactName: 'drop'
