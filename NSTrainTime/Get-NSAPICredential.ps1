@@ -5,7 +5,7 @@ function Get-NSAPICredential{
 
     Param(
         #Path to powershell data file containing API credential info
-        [Parameter()][string]$PowershellDataFile ="$PSScriptRoot\APICredential.psd1"
+        [Parameter()][string]$PowershellDataFile ="$(${function:Get-NSTrainStation}.Module.ModuleBase)\APICredential.psd1"
     )
 
     try{
@@ -16,8 +16,8 @@ function Get-NSAPICredential{
     }
 
     if($result.Username -eq '<email@address.com>'){
-        Write-Warning 'Before using this module you must update the APIcredentials.psd1 file'
-        Break
+        Write-Warning 'Before using this module you must first update the APIcredentials.psd1 file'
+        break
     }
     else{
         $result
