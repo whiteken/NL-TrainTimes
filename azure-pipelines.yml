@@ -49,7 +49,7 @@ steps:
       scriptFolder: 'hashtable @{Path="$(Build.SourcesDirectory)\Tests\PSScriptAnalyzer.tests.ps1";Parameters=@{BuildFolder="$(Build.SourcesDirectory)"}} '
       additionalModulePath: '$(Build.SourcesDirectory)\NSTrainTime'
       ForceUseOfPesterInTasks: true
-    enabled: true
+    enabled: false
 
   - task: RunPsScriptAnalyzer@1
     displayName: 'PsScriptAnalyzer Task'
@@ -64,10 +64,11 @@ steps:
       testResultsFiles: 'Test-Pester.XML'
       searchFolder: '$(Build.SourcesDirectory)'
       mergeTestResults: true
-
-  #- task: PSGalleryPackager@0
-  #  displayName: 'Publish to PS Gallery (master only)'
-  #  inputs:
-  #      apiKey: '$(PSGallery-APIKey)'
-  #      path: '$(Build.SourcesDirectory)\NSTrainTime'
-  #  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact to AZDO pipleines (master only)'
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: 'drop'
+      publishLocation: 'Container'
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
