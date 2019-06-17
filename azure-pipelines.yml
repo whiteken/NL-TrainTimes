@@ -66,13 +66,21 @@ steps:
       mergeTestResults: true
 
   - task: CopyFiles@2
-    displayName: 'Stage files for artifact (master only)'
+    displayName: 'Stage files for artifact NSTrainTime (master only)'
     inputs:
       SourceFolder: '$(Build.SourcesDirectory)\NSTrainTime'
       Contents: '**'
       TargetFolder: '$(Build.ArtifactStagingDirectory)\NSTrainTime'
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))  
   
+  - task: CopyFiles@2
+    displayName: 'Stage files for artifact PSTwitterAPI (+ AZDO fix) (master only)'
+    inputs:
+      SourceFolder: '$(Build.SourcesDirectory)\PSTwitterAPI'
+      Contents: '**'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)\PSTwitterAPI'
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))  
+
   - task: PublishBuildArtifacts@1
     displayName: 'Publish artifact to AZDO pipleines (master only)'
     inputs:
