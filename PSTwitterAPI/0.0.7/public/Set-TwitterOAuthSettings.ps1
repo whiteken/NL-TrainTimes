@@ -11,14 +11,6 @@ function Set-TwitterOAuthSettings {
     )
     Process {
 
-        #If ($OAuthSettings = Get-TwitterOAuthSettings -AccessToken $AccessToken -ErrorAction SilentlyContinue) {
-        #    If ($Force) {
-        #        [void]$Global:OAuthCollection.Remove($OAuthSettings)
-        #    } Else {
-        #        Write-Warning "OAuthSettings with AccessToken '${AccessToken}' already exists."
-        #    }
-        #}
-
         $OAuthSettings = @{
             ApiKey = $ApiKey
             ApiSecret = $ApiSecret
@@ -30,8 +22,8 @@ function Set-TwitterOAuthSettings {
         If ($RateLimitStatus.rate_limit_context.access_token -ne $AccessToken) { Throw 'RateLimitStatus was returned for the wrong AccessToken.'}
         
         $OAuthSettings['RateLimitStatus'] = ConvertFrom-RateLimitStatus -RateLimitStatus $RateLimitStatus
-
-        [void]$Global:OAuthCollection.Add($OAuthSettings)
+        
+        $OAuthSettings | Export-CliXML -Path "$(${function:Set-TwitterOAuthSettings}.module.modulebase)\private\Oauthfile.cli.xml" -Force
 
         If ($PassThru) { $OAuthSettings }
 

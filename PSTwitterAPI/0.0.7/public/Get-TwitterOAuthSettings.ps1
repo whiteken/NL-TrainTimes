@@ -5,6 +5,8 @@ function Get-TwitterOAuthSettings {
 
     If ($Resource) {
 
+        $OAuthSettings = Import-CliXML -Path "$(${function:Set-TwitterOAuthSettings}.module.modulebase)\private\Oauthfile.cli.xml"
+
         $AccessToken = $Global:OAuthCollection.RateLimitStatus |
                        Where-Object { $_.resource -eq "/$Resource" } |
                        Sort-Object @{expression="remaining";Descending=$true}, @{expression="reset";Ascending=$true} |
@@ -14,11 +16,11 @@ function Get-TwitterOAuthSettings {
 
     If ($AccessToken) {
 
-        $OAuthSettings = $Global:OAuthCollection.Where({$_.AccessToken -eq $AccessToken}) | Select-Object -First 1
+        $OAuthSettings = $OAuthSettings.Where({$_.AccessToken -eq $AccessToken}) | Select-Object -First 1
 
     } Else {
 
-        $OAuthSettings = $Global:OAuthCollection | Get-Random
+        $OAuthSettings = $OAuthSettings | Get-Random
 
     }
 
