@@ -7,7 +7,7 @@ function Get-TwitterOAuthSettings {
 
         $OAuthSettings = Import-CliXML -Path "$(${function:Set-TwitterOAuthSettings}.module.modulebase)\private\Oauthfile.cli.xml"
 
-        $AccessToken = $Global:OAuthCollection.RateLimitStatus |
+        $AccessToken = $OAuthSettings.RateLimitStatus |
                        Where-Object { $_.resource -eq "/$Resource" } |
                        Sort-Object @{expression="remaining";Descending=$true}, @{expression="reset";Ascending=$true} |
                        Select-Object -First 1 -Expand AccessToken
