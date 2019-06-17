@@ -5,7 +5,7 @@ function Get-TwitterOAuthSettings {
 
     If ($Resource) {
 
-        $AccessToken = $Script:OAuthCollection.RateLimitStatus |
+        $AccessToken = $Global:OAuthCollection.RateLimitStatus |
                        Where-Object { $_.resource -eq "/$Resource" } |
                        Sort-Object @{expression="remaining";Descending=$true}, @{expression="reset";Ascending=$true} |
                        Select-Object -First 1 -Expand AccessToken
@@ -14,11 +14,11 @@ function Get-TwitterOAuthSettings {
 
     If ($AccessToken) {
 
-        $OAuthSettings = $Script:OAuthCollection.Where({$_.AccessToken -eq $AccessToken}) | Select-Object -First 1
+        $OAuthSettings = $Global:OAuthCollection.Where({$_.AccessToken -eq $AccessToken}) | Select-Object -First 1
 
     } Else {
 
-        $OAuthSettings = $Script:OAuthCollection | Get-Random
+        $OAuthSettings = $Global:OAuthCollection | Get-Random
 
     }
 

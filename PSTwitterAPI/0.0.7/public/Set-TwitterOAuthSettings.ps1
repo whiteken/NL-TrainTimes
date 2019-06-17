@@ -13,7 +13,7 @@ function Set-TwitterOAuthSettings {
 
         #If ($OAuthSettings = Get-TwitterOAuthSettings -AccessToken $AccessToken -ErrorAction SilentlyContinue) {
         #    If ($Force) {
-        #        [void]$Script:OAuthCollection.Remove($OAuthSettings)
+        #        [void]$Global:OAuthCollection.Remove($OAuthSettings)
         #    } Else {
         #        Write-Warning "OAuthSettings with AccessToken '${AccessToken}' already exists."
         #    }
@@ -31,7 +31,7 @@ function Set-TwitterOAuthSettings {
         
         $OAuthSettings['RateLimitStatus'] = ConvertFrom-RateLimitStatus -RateLimitStatus $RateLimitStatus
 
-        [void]$Script:OAuthCollection.Add($OAuthSettings)
+        [void]$Global:OAuthCollection.Add($OAuthSettings)
 
         If ($PassThru) { $OAuthSettings }
 
