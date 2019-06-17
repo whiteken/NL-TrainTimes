@@ -1,4 +1,4 @@
-$Script:OAuthCollection = [System.Collections.ArrayList]@()
+$Global:OAuthCollection = [System.Collections.ArrayList]@()
 
 $Script:EndPointBaseUrl = 'https://api.twitter.com/1.1'
 $Script:EndPointFileFormat = 'json'
