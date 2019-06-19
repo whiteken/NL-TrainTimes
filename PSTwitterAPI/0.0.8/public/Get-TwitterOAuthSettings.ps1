@@ -3,18 +3,37 @@ function Get-TwitterOAuthSettings {
     [CmdletBinding()]
     Param($Resource, $AccessToken)
 
-    If ($Resource) {
+    #Check for pipeline flag file
+    $flagPath = "$(${function:Get-TwitterOAuthSettings}.module.modulebase)/private/flag.cli.xml"
+    $AZDO = Test-Path -Path $flagPath -ErrorAction SilentlyContinue
 
-        $AccessToken = $Script:OAuthCollection.RateLimitStatus |
+    If ($Resource) {
+        if($AZDO){
+            #Changing default behaviour to cope with build agent variable scoping
+            #API creds will now be stored in clixml file instead of script variable
+
+            $OAuthSettings = Import-CliXML -Path "$(${function:Set-TwitterOAuthSettings}.module.modulebase)/private/Oauthfile.cli.xml"
+
+            $AccessToken = $OAuthSettings.RateLimitStatus |
                        Where-Object { $_.resource -eq "/$Resource" } |
                        Sort-Object @{expression="remaining";Descending=$true}, @{expression="reset";Ascending=$true} |
-                       Select-Object -First 1 -Expand AccessToken
-
+                       Select-Object -First 1 -Expand AccessToken    
+        }
+        else{
+            $AccessToken = $Script:OAuthCollection.RateLimitStatus |
+                       Where-Object { $_.resource -eq "/$Resource" } |
+                       Sort-Object @{expression="remaining";Descending=$true}, @{expression="reset";Ascending=$true} |
+                       Select-Object -First 1 -Expand AccessToken    
+        }
     }
 
     If ($AccessToken) {
-
-        $OAuthSettings = $Script:OAuthCollection.Where({$_.AccessToken -eq $AccessToken}) | Select-Object -First 1
+        if($AZDO){
+            $OAuthSettings = $OAuthSettings.Where({$_.AccessToken -eq $AccessToken}) | Select-Object -First 1
+        }
+        else{
+            $OAuthSettings = $Script:OAuthCollection.Where({$_.AccessToken -eq $AccessToken}) | Select-Object -First 1
+        }
 
     } Else {
 
@@ -32,7 +51,14 @@ function Get-TwitterOAuthSettings {
         }
     } Else {
         $OAuthSettings = $null
-        Throw "No OAuthSettings was found. Use 'Set-TwitterOAuthSettings' to set PSTwitterAPI ApiKey & Token."
+
+        $message =  "No OAuthSettings was found. Use 'Set-TwitterOAuthSettings' to set PSTwitterAPI ApiKey & Token."
+        if($AZDO){
+            Write-Verbose $message
+        }
+        else{
+            Throw $message
+        }
     }
 
     Return $OAuthSettings
