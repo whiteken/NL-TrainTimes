@@ -9,22 +9,18 @@ function Get-TwitterOAuthSettings {
 
     If ($Resource) {
         if($AZDO){
-            #Changing default behaviour to cope with build agent variable scoping
+            #Changing default behaviour to cope with Azure DevOps build agent variable scoping
             #API creds will now be stored in clixml file instead of script variable
-
             $OAuthSettings = Import-CliXML -Path "$(${function:Set-TwitterOAuthSettings}.module.modulebase)/private/Oauthfile.cli.xml"
-
-            $AccessToken = $OAuthSettings.RateLimitStatus |
-                       Where-Object { $_.resource -eq "/$Resource" } |
-                       Sort-Object @{expression="remaining";Descending=$true}, @{expression="reset";Ascending=$true} |
-                       Select-Object -First 1 -Expand AccessToken    
+            $AccessToken = $OAuthSettings.RateLimitStatus
         }
         else{
-            $AccessToken = $Script:OAuthCollection.RateLimitStatus |
-                       Where-Object { $_.resource -eq "/$Resource" } |
-                       Sort-Object @{expression="remaining";Descending=$true}, @{expression="reset";Ascending=$true} |
-                       Select-Object -First 1 -Expand AccessToken    
+            $AccessToken = $Script:OAuthCollection.RateLimitStatus
         }
+
+        $AccessToken = $AccessToken | Where-Object { $_.resource -eq "/$Resource" } |
+            Sort-Object @{expression="remaining";Descending=$true}, @{expression="reset";Ascending=$true} |
+            Select-Object -First 1 -Expand AccessToken
     }
 
     If ($AccessToken) {
