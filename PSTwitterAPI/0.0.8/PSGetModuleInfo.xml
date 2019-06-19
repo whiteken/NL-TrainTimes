@@ -1,0 +1,126 @@
+<Objs Version="1.1.0.1" xmlns="http://schemas.microsoft.com/powershell/2004/04">
+  <Obj RefId="0">
+    <TN RefId="0">
+      <T>Microsoft.PowerShell.Commands.PSRepositoryItemInfo</T>
+      <T>System.Management.Automation.PSCustomObject</T>
+      <T>System.Object</T>
+    </TN>
+    <MS>
+      <S N="Name">PSTwitterAPI</S>
+      <Version N="Version">0.0.7</Version>
+      <S N="Type">Module</S>
+      <S N="Description">API Helpers cmdlets to mimic the Twitter API endpoints._x000D__x000A_Handles loops to request more data (eg: 200 tweets per call)._x000D__x000A_You can set multiple ApiKey/Token._x000D__x000A_Handles rate limit for you, and rotate through your ApiKeys.</S>
+      <S N="Author">Marc R Kellerman</S>
+      <S N="CompanyName">mkellerman</S>
+      <S N="Copyright">(c) 2019 mkellerman. All rights reserved.</S>
+      <DT N="PublishedDate">2019-02-01T20:11:04+01:00</DT>
+      <Obj N="InstalledDate" RefId="1">
+        <DT>2019-06-13T18:04:40.8327803+02:00</DT>
+        <MS>
+          <Obj N="DisplayHint" RefId="2">
+            <TN RefId="1">
+              <T>Microsoft.PowerShell.Commands.DisplayHintType</T>
+              <T>System.Enum</T>
+              <T>System.ValueType</T>
+              <T>System.Object</T>
+            </TN>
+            <ToString>DateTime</ToString>
+            <I32>2</I32>
+          </Obj>
+        </MS>
+      </Obj>
+      <Nil N="UpdatedDate" />
+      <Nil N="LicenseUri" />
+      <URI N="ProjectUri">https://github.com/mkellerman/PSTwitterAPI</URI>
+      <URI N="IconUri">https://cdn1.iconfinder.com/data/icons/logotypes/32/twitter-128.png</URI>
+      <Obj N="Tags" RefId="3">
+        <TN RefId="2">
+          <T>System.Object[]</T>
+          <T>System.Array</T>
+          <T>System.Object</T>
+        </TN>
+        <LST>
+          <S>PSModule</S>
+          <S>Twitter</S>
+          <S>REST</S>
+          <S>API</S>
+        </LST>
+      </Obj>
+      <Obj N="Includes" RefId="4">
+        <TN RefId="3">
+          <T>System.Collections.Hashtable</T>
+          <T>System.Object</T>
+        </TN>
+        <DCT>
+          <En>
+            <S N="Key">Command</S>
+            <Obj N="Value" RefId="5">
+              <TNRef RefId="2" />
+              <LST />
+            </Obj>
+          </En>
+          <En>
+            <S N="Key">RoleCapability</S>
+            <Ref N="Value" RefId="5" />
+          </En>
+          <En>
+            <S N="Key">Workflow</S>
+            <Ref N="Value" RefId="5" />
+          </En>
+          <En>
+            <S N="Key">Function</S>
+            <Ref N="Value" RefId="5" />
+          </En>
+          <En>
+            <S N="Key">Cmdlet</S>
+            <Ref N="Value" RefId="5" />
+          </En>
+          <En>
+            <S N="Key">DscResource</S>
+            <Ref N="Value" RefId="5" />
+          </En>
+        </DCT>
+      </Obj>
+      <Nil N="PowerShellGetFormatVersion" />
+      <S N="ReleaseNotes">First public release</S>
+      <Obj N="Dependencies" RefId="6">
+        <TNRef RefId="2" />
+        <LST />
+      </Obj>
+      <S N="RepositorySourceLocation">https://www.powershellgallery.com/api/v2</S>
+      <S N="Repository">PSGallery</S>
+      <S N="PackageManagementProvider">NuGet</S>
+      <Obj N="AdditionalMetadata" RefId="7">
+        <TN RefId="4">
+          <T>System.Management.Automation.PSCustomObject</T>
+          <T>System.Object</T>
+        </TN>
+        <MS>
+          <S N="copyright">(c) 2019 mkellerman. All rights reserved.</S>
+          <S N="description">API Helpers cmdlets to mimic the Twitter API endpoints._x000D__x000A_Handles loops to request more data (eg: 200 tweets per call)._x000D__x000A_You can set multiple ApiKey/Token._x000D__x000A_Handles rate limit for you, and rotate through your ApiKeys.</S>
+          <S N="requireLicenseAcceptance">False</S>
+          <S N="releaseNotes">First public release</S>
+          <S N="isLatestVersion">True</S>
+          <S N="isAbsoluteLatestVersion">True</S>
+          <S N="versionDownloadCount">173</S>
+          <S N="downloadCount">205</S>
+          <S N="packageSize">156350</S>
+          <S N="published">01/02/2019 20:11:04 +01:00</S>
+          <S N="created">01/02/2019 20:11:04 +01:00</S>
+          <S N="lastUpdated">12/06/2019 13:51:04 +02:00</S>
+          <S N="tags">PSModule Twitter REST API</S>
+          <S N="developmentDependency">False</S>
+          <S N="updated">2019-06-12T13:51:04Z</S>
+          <S N="NormalizedVersion">0.0.7</S>
+          <S N="Authors">Marc R Kellerman</S>
+          <S N="IsPrerelease">false</S>
+          <S N="ItemType">Module</S>
+          <S N="FileList">PSTwitterAPI.nuspec|PSTwitterAPI.psd1|PSTwitterAPI.psm1|private\ConvertFrom-RateLimitStatus.ps1|private\Get-Eposh.ps1|private\Get-OAuthParameters.ps1|public\Get-TwitterOAuthSettings.ps1|public\Invoke-TwitterAPI.ps1|public\Send-TwitterDirectMessages_EventsNew.ps1|public\Set-TwitterOAuthSettings.ps1|public\helper\Get-TwitterAccount_Settings.ps1|public\helper\Get-TwitterAccount_VerifyCredentials.ps1|public\helper\Get-TwitterApplication_RateLimitStatus.ps1|public\helper\Get-TwitterBlocks_Ids.ps1|public\helper\Get-TwitterBlocks_List.ps1|public\helper\Get-TwitterCollections_Entries.ps1|public\helper\Get-TwitterCollections_List.ps1|public\helper\Get-TwitterCollections_Show.ps1|public\helper\Get-TwitterCustomProfiles_List.ps1|public\helper\Get-TwitterCustomProfiles__Id.ps1|public\helper\Get-TwitterDirectMessages_EventsList.ps1|public\helper\Get-TwitterDirectMessages_EventsShow.ps1|public\helper\Get-TwitterDirectMessages_WelcomeMessagesList.ps1|public\helper\Get-TwitterDirectMessages_WelcomeMessagesRulesList.ps1|public\helper\Get-TwitterDirectMessages_WelcomeMessagesRulesShow.ps1|public\helper\Get-TwitterDirectMessages_WelcomeMessagesShow.ps1|public\helper\Get-TwitterFavorites_List.ps1|public\helper\Get-TwitterFollowers_IDs.ps1|public\helper\Get-TwitterFollowers_List.ps1|public\helper\Get-TwitterFriendships_Incoming.ps1|public\helper\Get-TwitterFriendships_Lookup.ps1|public\helper\Get-TwitterFriendships_NoRetweetsIds.ps1|public\helper\Get-TwitterFriendships_Outgoing.ps1|public\helper\Get-TwitterFriendships_Show.ps1|public\helper\Get-TwitterFriends_IDs.ps1|public\helper\Get-TwitterFriends_List.ps1|public\helper\Get-TwitterGeo_Id_PlaceId.ps1|public\helper\Get-TwitterGeo_ReverseGeocode.ps1|public\helper\Get-TwitterGeo_Search.ps1|public\helper\Get-TwitterHelp_Configuration.ps1|public\helper\Get-TwitterHelp_Languages.ps1|public\helper\Get-TwitterHelp_Privacy.ps1|public\helper\Get-TwitterHelp_Tos.ps1|public\helper\Get-TwitterLists_list.ps1|public\helper\Get-TwitterLists_Members.ps1|public\helper\Get-TwitterLists_Memberships.ps1|public\helper\Get-TwitterLists_MembersShow.ps1|public\helper\Get-TwitterLists_Ownerships.ps1|public\helper\Get-TwitterLists_Show.ps1|public\helper\Get-TwitterLists_Statuses.ps1|public\helper\Get-TwitterLists_Subscribers.ps1|public\helper\Get-TwitterLists_SubscribersShow.ps1|public\helper\Get-TwitterLists_Subscriptions.ps1|public\helper\Get-TwitterMutes_UsersIds.ps1|public\helper\Get-TwitterMutes_UsersList.ps1|public\helper\Get-TwitterOauth_Authenticate.ps1|public\helper\Get-TwitterOauth_Authorize.ps1|public\helper\Get-TwitterSavedSearches_List.ps1|public\helper\Get-TwitterSavedSearches_Show_Id.ps1|public\helper\Get-TwitterSearch_Tweets.ps1|public\helper\Get-TwitterStatuses_HomeTimeline.ps1|public\helper\Get-TwitterStatuses_Lookup.ps1|public\helper\Get-TwitterStatuses_MentionsTimeline.ps1|public\helper\Get-TwitterStatuses_RetweetersIds.ps1|public\helper\Get-TwitterStatuses_RetweetsOfMe.ps1|public\helper\Get-TwitterStatuses_Retweets_Id.ps1|public\helper\Get-TwitterStatuses_Sample.ps1|public\helper\Get-TwitterStatuses_Show_Id.ps1|public\helper\Get-TwitterStatuses_UserTimeline.ps1|public\helper\Get-TwitterTrends_Available.ps1|public\helper\Get-TwitterTrends_Closest.ps1|public\helper\Get-TwitterTrends_Place.ps1|public\helper\Get-TwitterUsers_Lookup.ps1|public\helper\Get-TwitterUsers_ProfileBanner.ps1|public\helper\Get-TwitterUsers_Search.ps1|public\helper\Get-TwitterUsers_Show.ps1|public\helper\Get-TwitterUsers_Suggestions.ps1|public\helper\Get-TwitterUsers_Suggestions_Slug.ps1|public\helper\Get-TwitterUsers_Suggestions_SlugMembers.ps1|public\helper\Remove-TwitterCustomProfiles_Destroy.ps1|public\helper\Send-TwitterAccount_RemoveProfileBanner.ps1|public\helper\Send-TwitterAccount_Settings.ps1|public\helper\Send-TwitterAccount_UpdateProfile.ps1|public\helper\Send-TwitterAccount_UpdateProfileBackgroundImage.ps1|public\helper\Send-TwitterAccount_UpdateProfileBanner.ps1|public\helper\Send-TwitterAccount_UpdateProfileImage.ps1|public\helper\Send-TwitterBlocks_Create.ps1|public\helper\Send-TwitterBlocks_Destroy.ps1|public\helper\Send-TwitterCollections_Create.ps1|public\helper\Send-TwitterCollections_Destroy.ps1|public\helper\Send-TwitterCollections_EntriesAdd.ps1|public\helper\Send-TwitterCollections_EntriesCurate.ps1|public\helper\Send-TwitterCollections_EntriesMove.ps1|public\helper\Send-TwitterCollections_EntriesRemove.ps1|public\helper\Send-TwitterCollections_Update.ps1|public\helper\Send-TwitterCustomProfiles_New.Json.ps1|public\helper\Send-TwitterDirectMessages_IndicateTyping.ps1|public\helper\Send-TwitterDirectMessages_MarkRead.ps1|public\helper\Send-TwitterDirectMessages_WelcomeMessagesNew.ps1|public\helper\Send-TwitterDirectMessages_WelcomeMessagesRulesNew.ps1|public\helper\Send-TwitterFavorites_Create.ps1|public\helper\Send-TwitterFavorites_Destroy.ps1|public\helper\Send-TwitterFriendships_Create.ps1|public\helper\Send-TwitterFriendships_Destroy.ps1|public\helper\Send-TwitterFriendships_Update.ps1|public\helper\Send-TwitterLists_Create.ps1|public\helper\Send-TwitterLists_Destroy.ps1|public\helper\Send-TwitterLists_MembersCreate.ps1|public\helper\Send-TwitterLists_MembersCreateAll.ps1|public\helper\Send-TwitterLists_MembersDestroy.ps1|public\helper\Send-TwitterLists_MembersDestroyAll.ps1|public\helper\Send-TwitterLists_SubscribersCreate.ps1|public\helper\Send-TwitterLists_SubscribersDestroy.ps1|public\helper\Send-TwitterLists_Update.ps1|public\helper\Send-TwitterMedia_MetadataCreate.ps1|public\helper\Send-TwitterMedia_SubtitlesCreate.ps1|public\helper\Send-TwitterMedia_SubtitlesDelete.ps1|public\helper\Send-TwitterMedia_Upload.ps1|public\helper\Send-TwitterMutes_UsersCreate.ps1|public\helper\Send-TwitterMutes_UsersDestroy.ps1|public\helper\Send-TwitterOauth2_InvalidateToken.ps1|public\helper\Send-TwitterOauth2_Token.ps1|public\helper\Send-TwitterOauth_AccessToken.ps1|public\helper\Send-TwitterOauth_InvalidateToken.ps1|public\helper\Send-TwitterOauth_RequestToken.ps1|public\helper\Send-TwitterSavedSearches_Create.ps1|public\helper\Send-TwitterSavedSearches_Destroy_Id.ps1|public\helper\Send-TwitterStatuses_Destroy_Id.ps1|public\helper\Send-TwitterStatuses_Filter.ps1|public\helper\Send-TwitterStatuses_Retweet_Id.ps1|public\helper\Send-TwitterStatuses_Unretweet_Id.ps1|public\helper\Send-TwitterStatuses_Update.ps1|public\helper\Send-TwitterStatuses_UpdateWithMedia.ps1|public\helper\Send-TwitterUsers_ReportSpam.ps1</S>
+          <S N="GUID">44f3fd27-d82a-43c2-a9b8-72e552484b09</S>
+          <S N="CompanyName">@mkellerman</S>
+        </MS>
+      </Obj>
+      <S N="InstalledLocation">\\ad.ing.net\WPS\NL\P\UD\200008\CF01MI\Home\My Documents\PowerShell\Modules\PSTwitterAPI\0.0.7</S>
+    </MS>
+  </Obj>
+</Objs>
