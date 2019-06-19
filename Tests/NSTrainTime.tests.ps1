@@ -21,6 +21,12 @@ InModuleScope NSTrainTime {
 
             Context "Standardised module tests for $functionName function"{
                 
+                #Consider using this instead....
+                #$parseErrors = $null
+                #$code = Get-Content $functionFile
+                #$AST  = [System.Management.Automation.Language.Parser]::ParseInput($Code,[ref]$null,[ref]$parseErrors)
+                #$parseErrors.Count  | Should Be 0
+
                 It "Function file should contain valid PowerShell code" {
                     $content = Get-Content $functionFile -ErrorAction Stop
                     $errorTotal = $null
