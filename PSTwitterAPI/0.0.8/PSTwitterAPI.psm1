@@ -8,12 +8,15 @@ if(-not($AZDO)){
 }
 else{
     if(-not(Test-Path -path "$PSScriptRoot\private\flag.cli.xml" -ErrorAction SilentlyContinue)){
-        Write-Warning "You have specified 'true' as a module load -Argumentlist parameter.`nThis switch is designed for use in an AzureDevOps pipeline.`n The parameter causes API credentials to be stored in a file.`nTo ensure that they are removed use Remove-Module."
+        
+        Write-Verbose "You have specified 'true' as a module load -Argumentlist parameter. This switch is designed for use in an AzureDevOps pipeline. The parameter causes API credentials to be stored in a file."
+        
         'Azure DevOps pipeline fix' | Export-CliXML -Path "$PSScriptRoot\private\flag.cli.xml"
-        $module = $MyInvocation.MyCommand.ScriptBlock.Module
-        $module.OnRemove = {
-            Get-Item -Path "$PSScriptRoot\private\flag.cli.xml" | Remove-Item -Verbose
-            Get-Item -Path "$PSScriptRoot\private\OAuthSettings.cli.xml" | Remove-Item -Verbose
+        
+        $thisModule = $MyInvocation.MyCommand.ScriptBlock.Module
+        $thisModule.OnRemove = {
+            Get-Item -Path "$(${function:Set-TwitterOAuthSettings}.module.modulebase)\private\flag.cli.xml" | Remove-Item -Verbose  -ErrorAction SilentlyContinue
+            Get-Item -Path "$(${function:Set-TwitterOAuthSettings}.module.modulebase)\private\Oauthfile.cli.xml" | Remove-Item -Verbose -ErrorAction SilentlyContinue
         }
     }
 }
