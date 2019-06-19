@@ -36,9 +36,12 @@ function Get-TwitterOAuthSettings {
         }
 
     } Else {
-
-        $OAuthSettings = $Script:OAuthCollection | Get-Random
-
+        if($AZDO){
+            $OAuthSettings = $OAuthSettings | Get-Random
+        }
+        else{
+            $OAuthSettings = $Script:OAuthCollection | Get-Random
+        }
     }
 
     If ($OAuthSettings) {
