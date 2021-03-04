@@ -24,7 +24,7 @@ GUID = '1e9915b1-6c52-4da3-9f3d-8c3c9692cd80'
 Author = 'Kenny White'
 
 # Company or vendor of this module
-CompanyName = 'Unknown'
+CompanyName = '@kwhitealot'
 
 # Copyright statement for this module
 Copyright = 'MIT License'
@@ -103,7 +103,7 @@ PrivateData = @{
     PSData = @{
 
         # Tags applied to this module. These help with module discovery in online galleries.
-        # Tags = @()
+        Tags = @('Netherlands', 'Nederland', 'Dutch', 'Train', 'RESTful', 'API', 'Trein', 'NS.nl')
 
         # A URL to the license for this module.
         LicenseUri = 'https://github.com/whiteken/NSTrainTime/blob/master/LICENSE'
