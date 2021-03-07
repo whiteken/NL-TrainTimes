@@ -11,7 +11,7 @@ pr:
 - none  
 
 pool:
-  name: Hosted Windows Container
+  name: windows-latest
 
 steps:
   - task: PowerShell@2
