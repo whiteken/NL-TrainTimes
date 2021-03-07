@@ -3,7 +3,7 @@
 [uri]$URI = "https://gateway.apiportal.ns.nl/reisinformatie-api/api/v2/stations"
 
 $headers = @{
-    "Ocp-Apim-Subscription-Key" = "05f42a95c2cf468797f4fee7fe700cc5"
+    "Ocp-Apim-Subscription-Key" = ""
 }
 
 $Station = "Hilver"
