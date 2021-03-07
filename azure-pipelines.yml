@@ -10,8 +10,9 @@ trigger:
 pr:
 - none  
 
+
 pool:
-  name: windows-latest
+  name: 'windows-latest'
 
 steps:
   - task: PowerShell@2
