@@ -4,7 +4,7 @@ $toStation = 'Amersfoort'
 $uri = 'https://gateway.apiportal.ns.nl/reisinformatie-api/api/v3/trips?fromStation={0}&toStation={1}&originWalk=false&originBike=false&originCar=false&destinationWalk=false&destinationBike=false&destinationCar=false&shorterChange=false&travelAssistance=false&searchForAccessibleTrip=false&localTrainsOnly=false&excludeHighSpeedTrains=false&excludeTrainsWithReservationRequired=false&yearCard=false&discount=NO_DISCOUNT&travelClass=2&polylines=false&passing=false&travelRequestType=DEFAULT' -f $fromStation, $toStation
 
 $headers = @{
-    "Ocp-Apim-Subscription-Key" = "05f42a95c2cf468797f4fee7fe700cc5"
+    "Ocp-Apim-Subscription-Key" = ""
 }
 
 $raw = Invoke-RestMethod -Uri $URI -Headers $headers -Method Get
