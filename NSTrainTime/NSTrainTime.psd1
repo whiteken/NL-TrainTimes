@@ -9,10 +9,10 @@
 @{
 
 # Script module or binary module file associated with this manifest.
-RootModule = './NSTrainTime.psm1'
+RootModule = 'NSTrainTime.psm1'
 
 # Version number of this module.
-ModuleVersion = '1.1.1.0'
+ModuleVersion = '2.0.0.0'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -24,7 +24,7 @@ GUID = '1e9915b1-6c52-4da3-9f3d-8c3c9692cd80'
 Author = 'Kenny White'
 
 # Company or vendor of this module
-CompanyName = 'Unknown'
+CompanyName = '@kwhitealot'
 
 # Copyright statement for this module
 Copyright = 'MIT License'
@@ -58,7 +58,7 @@ PowerShellVersion = '5.0'
 
 # Script files (.ps1) that are run in the caller's environment prior to importing this module.
 ScriptsToProcess = @(
-    './NSTrainTime.classes.ps1'
+    'NSTrainTime.classes.ps1'
 )
 
 # Type files (.ps1xml) to be loaded when importing this module
@@ -72,7 +72,7 @@ ScriptsToProcess = @(
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
 FunctionsToExport = @(
-    'Get-NSTrainJourney',
+    'Get-NSTrainJourney'
     'Get-NSTrainStation'
 )
 
@@ -84,7 +84,7 @@ VariablesToExport = @()
 
 # Aliases to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no aliases to export.
 AliasesToExport = @(
-    'gnstj',
+    'gnstj'
     'gnsts'
 )
 
@@ -103,7 +103,7 @@ PrivateData = @{
     PSData = @{
 
         # Tags applied to this module. These help with module discovery in online galleries.
-        # Tags = @()
+        Tags = @('Netherlands', 'Nederland', 'Dutch', 'Train', 'RESTful', 'API', 'Trein', 'NS.nl')
 
         # A URL to the license for this module.
         LicenseUri = 'https://github.com/whiteken/NSTrainTime/blob/master/LICENSE'

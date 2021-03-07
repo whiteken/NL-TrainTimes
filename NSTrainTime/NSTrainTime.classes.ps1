@@ -7,7 +7,7 @@ class nsTrainStationFromCompleter : Management.Automation.IArgumentCompleter {
         [System.Collections.IDictionary]$fakeBoundParameters
     ) {
 
-        [System.Management.Automation.CompletionResult[]] $result = foreach ($fromStation in $(Get-NSTrainStation -StationName $wordToComplete | Sort-Object -Unique)) {
+        [System.Management.Automation.CompletionResult[]] $result = foreach ($fromStation in $(Get-NSTrainStation -Station $wordToComplete | Select-Object -ExpandProperty LongName | Sort-Object -Unique)) {
 
             $fromStation = "'$fromStation'"
 
@@ -31,7 +31,7 @@ class nsTrainStationToCompleter : Management.Automation.IArgumentCompleter {
         [System.Collections.IDictionary]$fakeBoundParameters
     ) {
 
-        [System.Management.Automation.CompletionResult[]] $result = foreach ($toStation in $(Get-NSTrainStation -StationName $wordToComplete | Sort-Object -Unique)) {
+        [System.Management.Automation.CompletionResult[]] $result = foreach ($toStation in $(Get-NSTrainStation -Station $wordToComplete | Select-Object -ExpandProperty LongName | Sort-Object -Unique)) {
 
             $toStation = "'$toStation'"
 
@@ -50,21 +50,56 @@ class NSJourney
 {
     [string]$fromStation
     [string]$toStation
-    [int]$Changes
-    [string]$JourneyTime
-    [string]$Delay
-    [datetime]$Departure
-    [datetime]$Arrival
+    [int]$Stops
+    [int]$DurationMins
+    [string]$DeparturePlatform
     [string]$Status
+    [string]$CrowdForecast
+    [double]$Punctuality
+    [datetime]$DepartureTime
+    [datetime]$ArrivalTime
 
-    NSJourney([string]$fromStation,[string]$toStation,[int]$Changes,[string]$JourneyTime,[string]$Delay,[datetime]$Departure,[datetime]$Arrival,[string]$Status){
+    NSJourney(
+        [string]$fromStation,
+        [string]$toStation,
+        [int]$Stops,
+        [int]$DurationMins,
+        [string]$DeparturePlatform,
+        [string]$Status,
+        [string]$CrowdForecast,
+        [double]$Punctuality,
+        [datetime]$DepartureTime,
+        [datetime]$ArrivalTime
+    ){
         $this.fromStation = $fromStation
         $this.toStation = $toStation
-        $this.Changes = $Changes
-        $this.JourneyTime = $JourneyTime
-        $this.Delay = $Delay
-        $this.Departure = $Departure
-        $this.Arrival = $Arrival
+        $this.Stops = $Stops
+        $this.DurationMins = $DurationMins
+        $this.DeparturePlatform = $DeparturePlatform
         $this.Status = $Status
+        $this.CrowdForecast = $CrowdForecast
+        $this.Punctuality = $Punctuality
+        $this.DepartureTime = $DepartureTime
+        $this.ArrivalTime = $ArrivalTime
+    }
+}
+
+class NSStation
+{
+    [string]$UICCode
+    [string]$ShortName
+    [string]$MiddleName
+    [string]$LongName
+
+    NSStation(
+        [string]$UICCode,
+        [string]$ShortName,
+        [string]$MiddleName,
+        [string]$LongName
+    ){
+        $this.UICCode = $UICCode
+        $this.ShortName = $ShortName
+        $this.MiddleName = $MiddleName
+        $this.LongName = $LongName
     }
 }
