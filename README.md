@@ -24,10 +24,4 @@ Get-NSTrainJourney -fromStation 'Amsterdam' -toStation 'Duivendrecht'
 
 Returns full set of trains journeys from the api
 
-```powershell
-
-Get-NSTrainJourney -fromStation 'Amsterdam' -toStation 'Duivendrecht'
-
-```
-
 Tab completion is enabled on -fromStation and -toStation parameters so it's not necessary to know the full station name.  Type the first few letters and hit tab.
